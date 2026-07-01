@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Daily Devotion · Bible NIV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2ede8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c241e;
+            padding: 1.2rem;
+        }
+
+        .container {
+            max-width: 520px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 20px 40px -12px rgba(40, 30, 20, 0.25);
+            border: 1px solid rgba(235, 225, 215, 0.4);
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 2.8rem;
+            color: #786455;
+            margin-bottom: 0.2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            color: #2b211b;
+            margin-bottom: 0.1rem;
+        }
+
+        .subtitle {
+            color: #5f5146;
+            font-size: 0.85rem;
+            font-style: italic;
+            border-left: 4px solid #b8a59a;
+            padding-left: 1rem;
+            max-width: 280px;
+            margin: 0.2rem auto 1.2rem;
+        }
+
+        /* Time Cards */
+        .time-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-card {
+            background: rgba(255, 250, 245, 0.5);
+            border: 2px solid #d6c8bc;
+            border-radius: 20px;
+            padding: 0.7rem 0.4rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+
+        .time-card:active {
+            transform: scale(0.95);
+        }
+
+        .time-card.active {
+            border-color: #b09a8b;
+            background: rgba(255, 250, 245, 0.8);
+            box-shadow: 0 4px 16px rgba(80, 60, 40, 0.08);
+        }
+
+        .time-card .icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.1rem;
+            color: #5e4d3f;
+        }
+
+        .time-card .label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #5f5146;
+        }
+
+        .time-card .time-display {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2b211b;
+            background: rgba(255, 250, 245, 0.6);
+            border-radius: 12px;
+            padding: 0.15rem 0.3rem;
+            margin-top: 0.1rem;
+            border: 1px solid #ddd0c4;
+        }
+
+        .time-card .status {
+            font-size: 0.6rem;
+            margin-top: 0.2rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            background: #e4dad2;
+            color: #5f5146;
+        }
+
+        .time-card .status.done {
+            background: #b8a69a;
+            color: #fcf7f2;
+        }
+
+        .time-card .status.ready {
+            background: #d2c3b6;
+            color: #2b211b;
+        }
+
+        .time-card .status.alarm {
+            background: #d4b8b0;
+            color: #4d2e26;
+            animation: pulseAlarm 1s ease-in-out infinite;
+        }
+
+        @keyframes pulseAlarm {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.95); }
+        }
+
+        .time-card .edit-hint {
+            font-size: 0.5rem;
+            color: #a08f80;
+            margin-top: 0.2rem;
+            opacity: 0.7;
+        }
+
+        /* Verse Display */
+        .verse-box {
+            background: rgba(255, 250, 245, 0.4);
+            border-radius: 24px;
+            padding: 1.5rem 1.2rem;
+            margin: 0.3rem 0 1.2rem;
+            border: 1px solid #dccfc4;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .verse-box .ref {
+            font-weight: 600;
+            color: #4f3d31;
+            font-size: 0.95rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .verse-box .text {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-weight: 350;
+            color: #281f1a;
+        }
+
+        .verse-box .time-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8f7c6e;
+            margin-top: 0.6rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.3rem;
+        }
+
+        .btn {
+            background: rgba(255, 250, 245, 0.6);
+            border: 1px solid #d6c8bc;
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 470;
+            color: #332a23;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.94);
+            background: #d6c7bb;
+        }
+
+        .btn-primary {
+            background: #b09a8b;
+            border-color: #8a7566;
+            color: #fcf7f2;
+        }
+
+        .btn-primary:active {
+            background: #8a7566;
+        }
+
+        .btn-danger {
+            background: #d4b8b0;
+            border-color: #c4a098;
+            color: #4d2e26;
+        }
+
+        .btn-danger:active {
+            background: #c4a098;
+        }
+
+        .btn-success {
+            background: #8fb3a0;
+            border-color: #6d9482;
+            color: #fcf7f2;
+        }
+
+        .btn-success:active {
+            background: #6d9482;
+        }
+
+        .btn-alarm {
+            background: #d4b8b0;
+            border-color: #b8948a;
+            color: #4d2e26;
+            animation: pulseBtn 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Time Picker Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(30, 25, 22, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: #faf5ef;
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-content h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2b211b;
+            margin-bottom: 0.2rem;
+        }
+
+        .modal-content .modal-sub {
+            color: #5f5146;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-content label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #3f342c;
+            margin-bottom: 0.3rem;
+            text-align: left;
+        }
+
+        .modal-content input[type="time"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #d6c8bc;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2b211b;
+            background: rgba(255, 250, 245, 0.6);
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .modal-content input[type="time"]:focus {
+            border-color: #b09a8b;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.2rem;
+            justify-content: flex-end;
+        }
+
+        .modal-actions .btn {
+            padding: 0.5rem 1.5rem;
+        }
+
+        /* Alarm Overlay - shows when alarm is ringing */
+        .alarm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(30, 25, 22, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            padding: 2rem;
+        }
+
+        .alarm-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .alarm-overlay .alarm-icon {
+            font-size: 4rem;
+            color: #d4b8b0;
+            margin-bottom: 0.5rem;
+            animation: ringIcon 0.8s ease-in-out infinite;
+        }
+
+        @keyframes ringIcon {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        .alarm-overlay h2 {
+            color: #fcf7f2;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .alarm-overlay .alarm-verse {
+            color: #e8ddd4;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 400px;
+            text-align: center;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .alarm-overlay .alarm-ref {
+            color: #c4b5a8;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .alarm-overlay .btn {
+            font-size: 1rem;
+            padding: 0.8rem 2.5rem;
+            background: #b09a8b;
+            border-color: #8a7566;
+            color: #fcf7f2;
+        }
+
+        .alarm-overlay .btn:active {
+            transform: scale(0.94);
+        }
+
+        .footer {
+            margin-top: 1.2rem;
+            font-size: 0.65rem;
+            color: #a08f80;
+            border-top: 1px solid #dccfc4;
+            padding-top: 0.8rem;
+        }
+
+        .footer i {
+            margin: 0 3px;
+        }
+
+        /* Notification permission banner */
+        .perm-banner {
+            background: #e8ddd4;
+            border-radius: 16px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            color: #3f342c;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .perm-banner.show {
+            display: flex;
+        }
+
+        .perm-banner .btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 1rem;
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 1.2rem 0.8rem;
+            }
+            .time-section {
+                gap: 6px;
+            }
+            .time-card {
+                padding: 0.5rem 0.2rem;
+            }
+            .time-card .icon {
+                font-size: 1.2rem;
+            }
+            .time-card .time-display {
+                font-size: 0.7rem;
+            }
+            .verse-box .text {
+                font-size: 1rem;
+            }
+            .modal-content {
+                padding: 1.5rem 1.2rem;
+            }
+            .alarm-overlay .alarm-verse {
+                font-size: 1rem;
+            }
+            .alarm-overlay .alarm-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-icon"><i class="fas fa-feather-alt"></i></div>
+        <h1>Daily Devotion</h1>
+        <div class="subtitle">"Let your emotions find rest in His word"</div>
+
+        <!-- Notification permission banner -->
+        <div class="perm-banner" id="permBanner">
+            <span><i class="fas fa-bell"></i> Enable notifications for alarms</span>
+            <button class="btn btn-primary" id="enableNotifBtn">Enable</button>
+        </div>
+
+        <!-- Time cards -->
+        <div class="time-section">
+            <div class="time-card" id="morningCard" data-slot="morning">
+                <span class="icon"><i class="fas fa-sun"></i></span>
+                <div class="label">Morning</div>
+                <div class="time-display" id="morningTime">6:00 AM</div>
+                <span class="status" id="morningStatus"><i class="fas fa-clock"></i> waiting</span>
+                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
+            </div>
+            <div class="time-card" id="afternoonCard" data-slot="afternoon">
+                <span class="icon"><i class="fas fa-cloud-sun"></i></span>
+                <div class="label">Afternoon</div>
+                <div class="time-display" id="afternoonTime">12:00 PM</div>
+                <span class="status" id="afternoonStatus"><i class="fas fa-clock"></i> waiting</span>
+                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
+            </div>
+            <div class="time-card" id="eveningCard" data-slot="evening">
+                <span class="icon"><i class="fas fa-moon"></i></span>
+                <div class="label">Evening</div>
+                <div class="time-display" id="eveningTime">8:00 PM</div>
+                <span class="status" id="eveningStatus"><i class="fas fa-clock"></i> waiting</span>
+                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
+            </div>
+        </div>
+
+        <!-- Verse Display -->
+        <div class="verse-box" id="verseBox">
+            <div class="ref" id="verseRef">Psalm 23:1</div>
+            <div class="text" id="verseText">The Lord is my shepherd; I shall not want.</div>
+            <div class="time-tag" id="verseTimeTag"><i class="fas fa-sun"></i> Morning verse</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" id="nextVerseBtn"><i class="fas fa-sync-alt"></i> Next Verse</button>
+            <button class="btn btn-danger" id="resetBtn"><i class="fas fa-trash-alt"></i> Reset</button>
+            <button class="btn btn-success" id="testAlarmBtn"><i class="fas fa-bell"></i> Test Alarm</button>
+        </div>
+
+        <div class="footer">
+            <i class="fas fa-clock"></i> Tap a time to change it <i class="fas fa-bell"></i>
+        </div>
+    </div>
+
+    <!-- Time Picker Modal -->
+    <div class="modal-overlay" id="timeModal">
+        <div class="modal-content">
+            <h3 id="modalTitle"><i class="fas fa-clock"></i> Set Morning Time</h3>
+            <div class="modal-sub" id="modalSub">Choose when you want your morning devotion</div>
+            <label for="timePicker"><i class="fas fa-hourglass-half"></i> Select time:</label>
+            <input type="time" id="timePicker" value="06:00">
+            <div class="modal-actions">
+                <button class="btn" id="modalCancel"><i class="fas fa-times"></i> Cancel</button>
+                <button class="btn btn-primary" id="modalSave"><i class="fas fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alarm Overlay - shows when alarm is ringing -->
+    <div class="alarm-overlay" id="alarmOverlay">
+        <div class="alarm-icon"><i class="fas fa-bell"></i></div>
+        <h2><i class="fas fa-pray"></i> Devotion Time</h2>
+        <div class="alarm-verse" id="alarmVerse">The Lord is my shepherd; I shall not want.</div>
+        <div class="alarm-ref" id="alarmRef">Psalm 23:1</div>
+        <button class="btn" id="dismissAlarmBtn"><i class="fas fa-check"></i> Dismiss</button>
+    </div>
+
+    <script>
+        // ============================================================
+        // BIBLE DATA — 60+ verses
+        // ============================================================
+        const bibleVerses = [
+            { ref: "Psalm 23:1", text: "The Lord is my shepherd; I shall not want." },
+            { ref: "Psalm 23:4", text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me." },
+            { ref: "Psalm 27:1", text: "The Lord is my light and my salvation— whom shall I fear? The Lord is the stronghold of my life— of whom shall I be afraid?" },
+            { ref: "Psalm 34:18", text: "The Lord is near to the brokenhearted and saves those who are crushed in spirit." },
+            { ref: "Psalm 46:1", text: "God is our refuge and strength, an ever-present help in trouble." },
+            { ref: "Psalm 46:10", text: "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth." },
+            { ref: "Psalm 55:22", text: "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken." },
+            { ref: "Psalm 91:1-2", text: "Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty. I will say of the Lord, 'He is my refuge and my fortress, my God, in whom I trust.'" },
+            { ref: "Psalm 118:24", text: "The Lord has done it this very day; let us rejoice today and be glad." },
+            { ref: "Psalm 121:1-2", text: "I lift up my eyes to the mountains— where does my help come from? My help comes from the Lord, the Maker of heaven and earth." },
+            { ref: "Psalm 136:1", text: "Give thanks to the Lord, for he is good. His love endures forever." },
+            { ref: "Proverbs 3:5-6", text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight." },
+            { ref: "Proverbs 16:3", text: "Commit to the Lord whatever you do, and he will establish your plans." },
+            { ref: "Proverbs 17:22", text: "A cheerful heart is good medicine, but a crushed spirit dries up the bones." },
+            { ref: "Isaiah 40:31", text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint." },
+            { ref: "Isaiah 41:10", text: "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand." },
+            { ref: "Isaiah 43:2", text: "When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you." },
+            { ref: "Jeremiah 29:11", text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." },
+            { ref: "Lamentations 3:22-23", text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness." },
+            { ref: "Matthew 5:4", text: "Blessed are those who mourn, for they will be comforted." },
+            { ref: "Matthew 6:34", text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own." },
+            { ref: "Matthew 11:28", text: "Come to me, all you who are weary and burdened, and I will give you rest." },
+            { ref: "Mark 11:24", text: "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours." },
+            { ref: "John 3:16", text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life." },
+            { ref: "John 14:27", text: "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid." },
+            { ref: "John 16:33", text: "I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world." },
+            { ref: "Romans 8:28", text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose." },
+            { ref: "Romans 8:38-39", text: "For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord." },
+            { ref: "Romans 12:12", text: "Be joyful in hope, patient in affliction, faithful in prayer." },
+            { ref: "Romans 15:13", text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit." },
+            { ref: "1 Corinthians 13:4-5", text: "Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It does not dishonor others, it is not self-seeking, it is not easily angered, it keeps no record of wrongs." },
+            { ref: "1 Corinthians 16:14", text: "Do everything in love." },
+            { ref: "2 Corinthians 1:3-4", text: "Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort, who comforts us in all our troubles." },
+            { ref: "2 Corinthians 5:17", text: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" },
+            { ref: "2 Corinthians 12:9", text: "My grace is sufficient for you, for my power is made perfect in weakness." },
+            { ref: "Galatians 5:22-23", text: "But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control." },
+            { ref: "Ephesians 2:8", text: "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God." },
+            { ref: "Ephesians 4:32", text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you." },
+            { ref: "Philippians 4:6-7", text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus." },
+            { ref: "Philippians 4:13", text: "I can do all this through him who gives me strength." },
+            { ref: "Colossians 3:2", text: "Set your minds on things above, not on earthly things." },
+            { ref: "Colossians 3:12", text: "Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience." },
+            { ref: "1 Thessalonians 5:16-18", text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus." },
+            { ref: "2 Timothy 1:7", text: "For God has not given us a spirit of fear, but of power and of love and of a sound mind." },
+            { ref: "Hebrews 11:1", text: "Now faith is confidence in what we hope for and assurance about what we do not see." },
+            { ref: "Hebrews 13:5", text: "Keep your lives free from the love of money and be content with what you have, because God has said, 'Never will I leave you; never will I forsake you.'" },
+            { ref: "James 1:5", text: "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you." },
+            { ref: "James 5:13", text: "Is anyone among you in trouble? Let them pray. Is anyone happy? Let them sing songs of praise." },
+            { ref: "1 Peter 5:7", text: "Cast all your anxiety on him because he cares for you." },
+            { ref: "1 John 1:9", text: "If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness." },
+            { ref: "1 John 4:8", text: "Whoever does not love does not know God, because God is love." },
+            { ref: "1 John 4:19", text: "We love because he first loved us." },
+            { ref: "Revelation 21:4", text: "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain, for the old order of things has passed away." },
+            { ref: "Psalm 34:8", text: "Taste and see that the Lord is good; blessed is the one who takes refuge in him." },
+            { ref: "Psalm 37:4", text: "Take delight in the Lord, and he will give you the desires of your heart." },
+            { ref: "Psalm 119:105", text: "Your word is a lamp for my feet, a light on my path." },
+            { ref: "Proverbs 18:10", text: "The name of the Lord is a fortified tower; the righteous run to it and are safe." },
+            { ref: "Isaiah 43:19", text: "See, I am doing a new thing! Now it springs up; do you not perceive it? I am making a way in the wilderness and streams in the wasteland." },
+            { ref: "Romans 15:13", text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit." },
+            { ref: "2 Corinthians 9:8", text: "And God is able to bless you abundantly, so that in all things at all times you may have all that you need, you will abound in every good work." },
+            { ref: "Ephesians 3:20", text: "Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us." }
+        ];
+
+        // ============================================================
+        // STATE MANAGEMENT
+        // ============================================================
+        const STORAGE_KEY = 'dailyDevotionState';
+
+        function getDefaultState() {
+            const today = new Date().toDateString();
+            return {
+                date: today,
+                times: {
+                    morning: 360,
+                    afternoon: 720,
+                    evening: 1200
+                },
+                morning: { verseIndex: null, shown: false },
+                afternoon: { verseIndex: null, shown: false },
+                evening: { verseIndex: null, shown: false },
+                usedIndices: [],
+                alarmTriggered: false,
+                alarmSlot: null
+            };
+        }
+
+        let state = loadState();
+
+        function loadState() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    const today = new Date().toDateString();
+                    if (parsed.date === today) {
+                        return parsed;
+                    }
+                }
+            } catch (e) { /* ignore */ }
+            return getDefaultState();
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ============================================================
+        // VERSE MANAGEMENT
+        // ============================================================
+        function getUniqueVerse() {
+            const total = bibleVerses.length;
+            if (state.usedIndices.length >= total) {
+                state.usedIndices = [];
+            }
+
+            const available = [];
+            for (let i = 0; i < total; i++) {
+                if (!state.usedIndices.includes(i)) {
+                    available.push(i);
+                }
+            }
+
+            if (available.length === 0) {
+                state.usedIndices = [];
+                return 0;
+            }
+
+            const randomIdx = available[Math.floor(Math.random() * available.length)];
+            state.usedIndices.push(randomIdx);
+            saveState();
+            return randomIdx;
+        }
+
+        function getVerseForSlot(slotName) {
+            const slot = state[slotName];
+            if (!slot || slot.verseIndex === null || slot.verseIndex === undefined) {
+                const idx = getUniqueVerse();
+                slot.verseIndex = idx;
+                slot.shown = false;
+                saveState();
+                return idx;
+            }
+            return slot.verseIndex;
+        }
+
+        function markSlotShown(slotName) {
+            const slot = state[slotName];
+            if (slot) {
+                slot.shown = true;
+                saveState();
+                updateUI();
+            }
+        }
+
+        function resetSlotShown(slotName) {
+            const slot = state[slotName];
+            if (slot) {
+                slot.shown = false;
+                saveState();
+                updateUI();
+            }
+        }
+
+        // ============================================================
+        // TIME HELPERS
+        // ============================================================
+        function minutesToTimeStr(minutes) {
+            const h = Math.floor(minutes / 60);
+            const m = minutes % 60;
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            return `${h12}:${String(m).padStart(2, '0')} ${ampm}`;
+        }
+
+        function timeStrToMinutes(str) {
+            const [time, ampm] = str.split(' ');
+            let [h, m] = time.split(':').map(Number);
+            if (ampm === 'PM' && h !== 12) h += 12;
+            if (ampm === 'AM' && h === 12) h = 0;
+            return h * 60 + m;
+        }
+
+        function getCurrentMinutes() {
+            const now = new Date();
+            return now.getHours() * 60 + now.getMinutes();
+        }
+
+        // ============================================================
+        // LONG ALARM SOUND - Persistent, looping, won't stop until dismissed
+        // ============================================================
+        let alarmAudioCtx = null;
+        let alarmOscillators = [];
+        let alarmGainNodes = [];
+        let alarmIntervalId = null;
+        let isAlarmPlaying = false;
+
+        function startLongAlarm() {
+            if (isAlarmPlaying) return;
+
+            try {
+                if (!alarmAudioCtx) {
+                    alarmAudioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                }
+
+                // Resume context if suspended (needed for iOS)
+                if (alarmAudioCtx.state === 'suspended') {
+                    alarmAudioCtx.resume();
+                }
+
+                isAlarmPlaying = true;
+
+                // Create a calming, persistent chime pattern that loops
+                function playChimePattern() {
+                    if (!isAlarmPlaying) return;
+
+                    const now = alarmAudioCtx.currentTime;
+
+                    // Soft, relaxing chime pattern - plays repeatedly
+                    const notes = [
+                        { freq: 523.25, time: 0, duration: 0.6, vol: 0.10 },
+                        { freq: 659.25, time: 0.2, duration: 0.5, vol: 0.08 },
+                        { freq: 783.99, time: 0.4, duration: 0.5, vol: 0.08 },
+                        { freq: 1046.50, time: 0.7, duration: 0.8, vol: 0.06 },
+                        { freq: 880.00, time: 1.1, duration: 0.6, vol: 0.05 },
+                        { freq: 659.25, time: 1.5, duration: 0.8, vol: 0.05 }
+                    ];
+
+                    notes.forEach(n => {
+                        const osc = alarmAudioCtx.createOscillator();
+                        const gain = alarmAudioCtx.createGain();
+                        osc.type = 'sine';
+                        const detune = (Math.random() - 0.5) * 4;
+                        osc.frequency.value = n.freq + detune;
+
+                        gain.gain.setValueAtTime(n.vol, now + n.time);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + n.time + n.duration);
+
+                        osc.connect(gain);
+                        gain.connect(alarmAudioCtx.destination);
+
+                        // Store for cleanup
+                        alarmOscillators.push(osc);
+                        alarmGainNodes.push(gain);
+
+                        osc.start(now + n.time);
+                        osc.stop(now + n.time + n.duration + 0.1);
+                    });
+
+                    // Soft pad
+                    const pad = alarmAudioCtx.createOscillator();
+                    const padGain = alarmAudioCtx.createGain();
+                    pad.type = 'sine';
+                    pad.frequency.value = 392;
+                    padGain.gain.setValueAtTime(0.03, now);
+                    padGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+                    pad.connect(padGain);
+                    padGain.connect(alarmAudioCtx.destination);
+                    alarmOscillators.push(pad);
+                    alarmGainNodes.push(padGain);
+                    pad.start(now);
+                    pad.stop(now + 2.6);
+
+                    // Gentle wind chime
+                    for (let i = 0; i < 4; i++) {
+                        const osc2 = alarmAudioCtx.createOscillator();
+                        const gain2 = alarmAudioCtx.createGain();
+                        osc2.type = 'sine';
+                        const baseFreq = 500 + Math.random() * 400;
+                        osc2.frequency.value = baseFreq;
+                        gain2.gain.setValueAtTime(0.02, now + 0.8 + i * 0.3);
+                        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.8 + i * 0.3 + 0.4);
+                        osc2.connect(gain2);
+                        gain2.connect(alarmAudioCtx.destination);
+                        alarmOscillators.push(osc2);
+                        alarmGainNodes.push(gain2);
+                        osc2.start(now + 0.8 + i * 0.3);
+                        osc2.stop(now + 0.8 + i * 0.3 + 0.5);
+                    }
+                }
+
+                // Play first pattern immediately
+                playChimePattern();
+
+                // Schedule repeating patterns every 3 seconds
+                let patternCount = 0;
+                alarmIntervalId = setInterval(() => {
+                    if (!isAlarmPlaying) {
+                        clearInterval(alarmIntervalId);
+                        return;
+                    }
+                    // Clean up old oscillators periodically
+                    if (patternCount % 3 === 0) {
+                        alarmOscillators = [];
+                        alarmGainNodes = [];
+                    }
+                    playChimePattern();
+                    patternCount++;
+
+                    // Vibrate on each pattern
+                    if (navigator.vibrate) {
+                        navigator.vibrate([100, 80, 100]);
+                    }
+                }, 3000);
+
+                // Also vibrate continuously pattern
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 80, 100, 80, 150]);
+                }
+
+            } catch (e) {
+                console.log('Alarm sound error:', e);
+                // Fallback: try simple beep
+                try {
+                    const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 523;
+                    gain.gain.value = 0.1;
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 1);
+                } catch (e2) { /* ignore */ }
+            }
+        }
+
+        function stopLongAlarm() {
+            isAlarmPlaying = false;
+
+            if (alarmIntervalId) {
+                clearInterval(alarmIntervalId);
+                alarmIntervalId = null;
+            }
+
+            // Stop all oscillators
+            alarmOscillators.forEach(osc => {
+                try {
+                    if (osc.stop) osc.stop();
+                } catch (e) { /* ignore */ }
+            });
+            alarmOscillators = [];
+
+            alarmGainNodes.forEach(gain => {
+                try {
+                    if (gain.gain) gain.gain.setValueAtTime(0, 0);
+                } catch (e) { /* ignore */ }
+            });
+            alarmGainNodes = [];
+
+            // Close context to free resources
+            if (alarmAudioCtx && alarmAudioCtx.state !== 'closed') {
+                try {
+                    alarmAudioCtx.close();
+                } catch (e) { /* ignore */ }
+                alarmAudioCtx = null;
+            }
+
+            // Stop vibration
+            if (navigator.vibrate) {
+                navigator.vibrate(0);
+            }
+        }
+
+        // ============================================================
+        // NOTIFICATIONS
+        // ============================================================
+        let notificationPermission = false;
+
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    notificationPermission = true;
+                    document.getElementById('permBanner').classList.remove('show');
+                    return true;
+                } else if (Notification.permission === 'denied') {
+                    document.getElementById('permBanner').classList.remove('show');
+                    return false;
+                } else {
+                    document.getElementById('permBanner').classList.add('show');
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function sendNotification(title, body) {
+            if (notificationPermission && 'Notification' in window) {
+                try {
+                    new Notification(title, {
+                        body: body,
+                        icon: '📖',
+                        silent: false,
+                        vibrate: [150, 100, 150, 100, 200]
+                    });
+                } catch (e) { /* ignore */ }
+            }
+        }
+
+        document.getElementById('enableNotifBtn').addEventListener('click', async function() {
+            if ('Notification' in window) {
+                const result = await Notification.requestPermission();
+                if (result === 'granted') {
+                    notificationPermission = true;
+                    document.getElementById('permBanner').classList.remove('show');
+                }
+            }
+        });
+
+        // ============================================================
+        // ALARM TRIGGER
+        // ============================================================
+        function triggerAlarm(slotName) {
+            const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
+            const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
+            const slot = state[slotName];
+
+            // Get verse
+            const verseIdx = getVerseForSlot(slotName);
+            const verse = bibleVerses[verseIdx];
+
+            if (verse) {
+                // Update display
+                document.getElementById('verseRef').textContent = verse.ref;
+                document.getElementById('verseText').textContent = verse.text;
+                document.getElementById('verseTimeTag').textContent = `${icons[slotName]} ${labels[slotName]} verse`;
+
+                // Show alarm overlay
+                document.getElementById('alarmVerse').textContent = verse.text;
+                document.getElementById('alarmRef').textContent = verse.ref;
+                document.getElementById('alarmOverlay').classList.add('active');
+
+                // Start long alarm sound
+                startLongAlarm();
+
+                // Send notification
+                sendNotification(
+                    `🔔 ${labels[slotName]} Devotion`,
+                    `${verse.ref}: ${verse.text.substring(0, 60)}...`
+                );
+
+                // Mark as shown
+                markSlotShown(slotName);
+
+                // Update state
+                state.alarmTriggered = true;
+                state.alarmSlot = slotName;
+                saveState();
+                updateUI();
+            }
+        }
+
+        // ============================================================
+        // DISMISS ALARM
+        // ============================================================
+        function dismissAlarm() {
+            stopLongAlarm();
+            document.getElementById('alarmOverlay').classList.remove('active');
+            state.alarmTriggered = false;
+            state.alarmSlot = null;
+            saveState();
+            updateUI();
+        }
+
+        document.getElementById('dismissAlarmBtn').addEventListener('click', dismissAlarm);
+
+        // ============================================================
+        // CHECK SCHEDULED TIMES
+        // ============================================================
+        let lastCheckedMinute = -1;
+
+        function checkScheduledTimes() {
+            const currentMin = getCurrentMinutes();
+            if (currentMin === lastCheckedMinute) return false;
+            lastCheckedMinute = currentMin;
+
+            const slots = ['morning', 'afternoon', 'evening'];
+
+            slots.forEach(slotName => {
+                const slotTime = state.times[slotName];
+                const slot = state[slotName];
+                const isShown = slot ? slot.shown : false;
+
+                // Check if current time matches slot time (within 1 minute)
+                // Also check if alarm hasn't been triggered for this slot today
+                if (Math.abs(currentMin - slotTime) <= 1 && !isShown) {
+                    triggerAlarm(slotName);
+                }
+            });
+
+            return true;
+        }
+
+        // ============================================================
+        // UPDATE UI
+        // ============================================================
+        function updateUI() {
+            const slots = ['morning', 'afternoon', 'evening'];
+            const statusIds = ['morningStatus', 'afternoonStatus', 'eveningStatus'];
+            const timeIds = ['morningTime', 'afternoonTime', 'eveningTime'];
+
+            slots.forEach((slot, i) => {
+                const slotState = state[slot];
+                const statusEl = document.getElementById(statusIds[i]);
+                const timeEl = document.getElementById(timeIds[i]);
+
+                // Update time display
+                const timeMin = state.times[slot];
+                timeEl.textContent = minutesToTimeStr(timeMin);
+
+                // Update status
+                if (state.alarmTriggered && state.alarmSlot === slot) {
+                    statusEl.innerHTML = '<i class="fas fa-bell"></i> ringing';
+                    statusEl.className = 'status alarm';
+                } else if (slotState && slotState.shown) {
+                    statusEl.innerHTML = '<i class="fas fa-check-circle"></i> done';
+                    statusEl.className = 'status done';
+                } else {
+                    statusEl.innerHTML = '<i class="fas fa-clock"></i> waiting';
+                    statusEl.className = 'status';
+                }
+            });
+
+            saveState();
+        }
+
+        // ============================================================
+        // SHOW NEXT VERSE
+        // ============================================================
+        function showNextVerse() {
+            const idx = getUniqueVerse();
+            const verse = bibleVerses[idx];
+            if (verse) {
+                document.getElementById('verseRef').textContent = verse.ref;
+                document.getElementById('verseText').textContent = verse.text;
+                document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Manual verse';
+                // Play a short preview sound
+                const previewCtx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = previewCtx.createOscillator();
+                const gain = previewCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 659;
+                gain.gain.value = 0.08;
+                osc.connect(gain);
+                gain.connect(previewCtx.destination);
+                osc.start();
+                osc.stop(previewCtx.currentTime + 0.3);
+            }
+            saveState();
+        }
+
+        // ============================================================
+        // RESET
+        // ============================================================
+        function resetToday() {
+            // Stop any playing alarm
+            stopLongAlarm();
+            document.getElementById('alarmOverlay').classList.remove('active');
+
+            const today = new Date().toDateString();
+            state = getDefaultState();
+            state.date = today;
+            state.usedIndices = [];
+            state.morning = { verseIndex: null, shown: false };
+            state.afternoon = { verseIndex: null, shown: false };
+            state.evening = { verseIndex: null, shown: false };
+            state.alarmTriggered = false;
+            state.alarmSlot = null;
+            saveState();
+
+            const idx = getUniqueVerse();
+            const verse = bibleVerses[idx];
+            if (verse) {
+                document.getElementById('verseRef').textContent = verse.ref;
+                document.getElementById('verseText').textContent = verse.text;
+                document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Daily verse';
+            }
+            updateUI();
+        }
+
+        // ============================================================
+        // TIME PICKER MODAL
+        // ============================================================
+        let editingSlot = null;
+
+        function openTimePicker(slotName) {
+            editingSlot = slotName;
+            const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
+            const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
+
+            document.getElementById('modalTitle').textContent = `${icons[slotName]} Set ${labels[slotName]} Time`;
+            document.getElementById('modalSub').textContent = `Choose when you want your ${labels[slotName].toLowerCase()} devotion`;
+
+            const currentMin = state.times[slotName];
+            const hours = String(Math.floor(currentMin / 60)).padStart(2, '0');
+            const mins = String(currentMin % 60).padStart(2, '0');
+            document.getElementById('timePicker').value = `${hours}:${mins}`;
+
+            document.getElementById('timeModal').classList.add('active');
+        }
+
+        function closeTimePicker() {
+            document.getElementById('timeModal').classList.remove('active');
+            editingSlot = null;
+        }
+
+        function saveTimePicker() {
+            if (!editingSlot) return;
+            const val = document.getElementById('timePicker').value;
+            if (!val) return;
+
+            const [h, m] = val.split(':').map(Number);
+            const minutes = h * 60 + m;
+
+            state.times[editingSlot] = minutes;
+            resetSlotShown(editingSlot);
+            saveState();
+            updateUI();
+
+            closeTimePicker();
+        }
+
+        // Modal event listeners
+        document.querySelectorAll('.time-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const slot = this.dataset.slot;
+                if (slot) openTimePicker(slot);
+            });
+        });
+
+        document.getElementById('modalCancel').addEventListener('click', closeTimePicker);
+        document.getElementById('modalSave').addEventListener('click', saveTimePicker);
+
+        document.getElementById('timeModal').addEventListener('click', function(e) {
+            if (e.target === this) closeTimePicker();
+        });
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+        document.getElementById('nextVerseBtn').addEventListener('click', showNextVerse);
+        document.getElementById('resetBtn').addEventListener('click', resetToday);
+
+        document.getElementById('testAlarmBtn').addEventListener('click', function() {
+            // Test the alarm with a random verse
+            const idx = getUniqueVerse();
+            const verse = bibleVerses[idx];
+            if (verse) {
+                document.getElementById('alarmVerse').textContent = verse.text;
+                document.getElementById('alarmRef').textContent = verse.ref;
+                document.getElementById('alarmOverlay').classList.add('active');
+                startLongAlarm();
+                sendNotification('🔔 Test Alarm', 'Your devotion alarm is working!');
+            }
+        });
+
+        // ============================================================
+        // BACKGROUND CHECK
+        // ============================================================
+        function backgroundCheck() {
+            // If alarm is already playing, keep it going
+            if (isAlarmPlaying) {
+                // Make sure overlay is visible
+                if (!document.getElementById('alarmOverlay').classList.contains('active')) {
+                    document.getElementById('alarmOverlay').classList.add('active');
+                }
+            }
+
+            checkScheduledTimes();
+            updateUI();
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        function init() {
+            requestNotificationPermission();
+
+            // Load initial verse
+            const slots = ['morning', 'afternoon', 'evening'];
+            let foundVerse = false;
+
+            for (const slot of slots) {
+                const slotState = state[slot];
+                if (slotState && slotState.verseIndex !== null && slotState.verseIndex !== undefined) {
+                    const verse = bibleVerses[slotState.verseIndex];
+                    if (verse) {
+                        document.getElementById('verseRef').textContent = verse.ref;
+                        document.getElementById('verseText').textContent = verse.text;
+                        const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
+                        const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
+                        document.getElementById('verseTimeTag').textContent = `${icons[slot]} ${labels[slot]} verse`;
+                        foundVerse = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!foundVerse) {
+                const idx = getUniqueVerse();
+                const verse = bibleVerses[idx];
+                if (verse) {
+                    document.getElementById('verseRef').textContent = verse.ref;
+                    document.getElementById('verseText').textContent = verse.text;
+                    document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Daily verse';
+                }
+            }
+
+            // Check if there's a pending alarm that wasn't dismissed
+            if (state.alarmTriggered && state.alarmSlot) {
+                const slot = state[slotName];
+                if (slot && !slot.shown) {
+                    // Re-trigger the alarm
+                    const verseIdx = getVerseForSlot(state.alarmSlot);
+                    const verse = bibleVerses[verseIdx];
+                    if (verse) {
+                        document.getElementById('alarmVerse').textContent = verse.text;
+                        document.getElementById('alarmRef').textContent = verse.ref;
+                        document.getElementById('alarmOverlay').classList.add('active');
+                        startLongAlarm();
+                    }
+                }
+            }
+
+            updateUI();
+
+            // Check immediately
+            checkScheduledTimes();
+
+            // Check every 3 seconds for more responsive alarm
+            setInterval(backgroundCheck, 3000);
+
+            // Check on visibility change
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    // If alarm was playing and page was hidden, resume
+                    if (state.alarmTriggered && !document.getElementById('alarmOverlay').classList.contains('active')) {
+                        const slot = state.alarmSlot;
+                        if (slot) {
+                            const verseIdx = getVerseForSlot(slot);
+                            const verse = bibleVerses[verseIdx];
+                            if (verse) {
+                                document.getElementById('alarmVerse').textContent = verse.text;
+                                document.getElementById('alarmRef').textContent = verse.ref;
+                                document.getElementById('alarmOverlay').classList.add('active');
+                                startLongAlarm();
+                            }
+                        }
+                    }
+                    checkScheduledTimes();
+                    updateUI();
+                }
+            });
+
+            console.log('📖 Daily Devotion initialized. Times:',
+                minutesToTimeStr(state.times.morning),
+                minutesToTimeStr(state.times.afternoon),
+                minutesToTimeStr(state.times.evening)
+            );
+            console.log('🔔 Alarm will ring and continue until you open the page and dismiss it.');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
