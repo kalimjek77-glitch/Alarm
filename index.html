@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Devotion · Bible NIV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Spin The Bottle • Brown Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -12,1337 +13,1682 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
-            background: #f2ede8;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100%;
             min-height: 100vh;
-            min-height: 100dvh;
+            background: #f2e6da;
+            font-family: "Inter", sans-serif;
+            color: #3b2a1c;
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: #2c241e;
-            padding: 1.2rem;
+            padding: 12px;
+            overscroll-behavior: none;
+            /* prevent page pull */;
         }
 
-        .container {
-            max-width: 520px;
+        /* ── main container: ultra-smooth scroll ── */
+        .game-container {
             width: 100%;
-            background: rgba(255, 250, 245, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 40px;
-            padding: 1.8rem 1.5rem;
-            box-shadow: 0 20px 40px -12px rgba(40, 30, 20, 0.25);
-            border: 1px solid rgba(235, 225, 215, 0.4);
-            text-align: center;
-        }
-
-        .header-icon {
-            font-size: 2.8rem;
-            color: #786455;
-            margin-bottom: 0.2rem;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            color: #2b211b;
-            margin-bottom: 0.1rem;
-        }
-
-        .subtitle {
-            color: #5f5146;
-            font-size: 0.85rem;
-            font-style: italic;
-            border-left: 4px solid #b8a59a;
-            padding-left: 1rem;
-            max-width: 280px;
-            margin: 0.2rem auto 1.2rem;
-        }
-
-        /* Time Cards */
-        .time-section {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .time-card {
-            background: rgba(255, 250, 245, 0.5);
-            border: 2px solid #d6c8bc;
-            border-radius: 20px;
-            padding: 0.7rem 0.4rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            position: relative;
-        }
-
-        .time-card:active {
-            transform: scale(0.95);
-        }
-
-        .time-card.active {
-            border-color: #b09a8b;
-            background: rgba(255, 250, 245, 0.8);
-            box-shadow: 0 4px 16px rgba(80, 60, 40, 0.08);
-        }
-
-        .time-card .icon {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.1rem;
-            color: #5e4d3f;
-        }
-
-        .time-card .label {
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: #5f5146;
-        }
-
-        .time-card .time-display {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #2b211b;
-            background: rgba(255, 250, 245, 0.6);
-            border-radius: 12px;
-            padding: 0.15rem 0.3rem;
-            margin-top: 0.1rem;
-            border: 1px solid #ddd0c4;
-        }
-
-        .time-card .status {
-            font-size: 0.6rem;
-            margin-top: 0.2rem;
-            padding: 0.1rem 0.5rem;
-            border-radius: 20px;
-            display: inline-block;
-            background: #e4dad2;
-            color: #5f5146;
-        }
-
-        .time-card .status.done {
-            background: #b8a69a;
-            color: #fcf7f2;
-        }
-
-        .time-card .status.ready {
-            background: #d2c3b6;
-            color: #2b211b;
-        }
-
-        .time-card .status.alarm {
-            background: #d4b8b0;
-            color: #4d2e26;
-            animation: pulseAlarm 1s ease-in-out infinite;
-        }
-
-        @keyframes pulseAlarm {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.95); }
-        }
-
-        .time-card .edit-hint {
-            font-size: 0.5rem;
-            color: #a08f80;
-            margin-top: 0.2rem;
-            opacity: 0.7;
-        }
-
-        /* Verse Display */
-        .verse-box {
-            background: rgba(255, 250, 245, 0.4);
-            border-radius: 24px;
-            padding: 1.5rem 1.2rem;
-            margin: 0.3rem 0 1.2rem;
-            border: 1px solid #dccfc4;
-            min-height: 150px;
+            max-width: 920px;
+            padding: 20px 16px 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            max-height: 98vh;
+            overflow-y: auto;
+            background: transparent;
+            border-radius: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+
+            /* ⚡ Smooth scroll optimizations ⚡ */
+            -webkit-overflow-scrolling: touch;
+            /* iOS momentum */
+            overscroll-behavior: contain;
+            /* prevent page scroll */
+            touch-action: pan-y;
+            /* vertical scroll only */
+            will-change: scroll-position, transform;
+            /* GPU hint */
+            transform: translateZ(0);
+            /* GPU acceleration */
+            contain: layout style paint;
+            /* isolate rendering */;
         }
 
-        .verse-box .ref {
-            font-weight: 600;
-            color: #4f3d31;
-            font-size: 0.95rem;
-            margin-bottom: 0.6rem;
+        .game-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .game-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .game-container::-webkit-scrollbar-thumb {
+            background: #d4b8a0;
+            border-radius: 8px;
         }
 
-        .verse-box .text {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            font-weight: 350;
-            color: #281f1a;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0 2px;
         }
 
-        .verse-box .time-tag {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #8f7c6e;
-            margin-top: 0.6rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.3px;
+            color: #3b2a1c;
         }
 
-        /* Controls */
-        .controls {
+        .logo i {
+            font-size: 32px;
+            color: #8b6349;
+        }
+
+        .player-count {
+            font-size: 16px;
+            font-weight: 500;
+            color: #5a4332;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 20px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .player-count span {
+            color: #3b2a1c;
+            font-weight: 700;
+        }
+
+        .input-area {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            width: 100%;
             justify-content: center;
-            margin-top: 0.3rem;
         }
 
-        .btn {
-            background: rgba(255, 250, 245, 0.6);
-            border: 1px solid #d6c8bc;
+        .input-area input {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 22px;
             border-radius: 60px;
-            padding: 0.5rem 1.2rem;
-            font-size: 0.8rem;
-            font-weight: 470;
-            color: #332a23;
+            border: 1px solid #d4b8a0;
+            background: rgba(255, 255, 255, 0.8);
+            color: #3b2a1c;
+            font-size: 16px;
+            outline: none;
+            transition: 0.25s;
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .input-area input::placeholder {
+            color: #a07f67;
+        }
+
+        .input-area input:focus {
+            border-color: #8b6349;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(139, 99, 73, 0.10);
+        }
+
+        .input-area .btn {
+            padding: 14px 26px;
+            border-radius: 60px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.25s;
+            font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            -webkit-tap-highlight-color: transparent;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            color: #3b2a1c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            touch-action: manipulation;
+            user-select: none;
         }
 
-        .btn:active {
-            transform: scale(0.94);
-            background: #d6c7bb;
+        .input-area .btn-primary {
+            background: #8b6349;
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 16px rgba(139, 99, 73, 0.15);
         }
 
-        .btn-primary {
-            background: #b09a8b;
-            border-color: #8a7566;
-            color: #fcf7f2;
+        .input-area .btn-primary:hover {
+            background: #6b4c36;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(139, 99, 73, 0.2);
         }
 
-        .btn-primary:active {
-            background: #8a7566;
+        .input-area .btn-primary:active {
+            transform: translateY(0);
         }
 
-        .btn-danger {
-            background: #d4b8b0;
-            border-color: #c4a098;
-            color: #4d2e26;
+        .input-area .btn-danger {
+            background: rgba(139, 99, 73, 0.08);
+            color: #8b6349;
+            border-color: rgba(139, 99, 73, 0.12);
         }
 
-        .btn-danger:active {
-            background: #c4a098;
+        .input-area .btn-danger:hover {
+            background: rgba(139, 99, 73, 0.15);
         }
 
-        .btn-success {
-            background: #8fb3a0;
-            border-color: #6d9482;
-            color: #fcf7f2;
+        .input-area .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
-        .btn-success:active {
-            background: #6d9482;
+        /* ── PLAYERS SECTION ── */
+        .players-section {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 60px;
+            padding: 0 24px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s ease;
         }
 
-        .btn-alarm {
-            background: #d4b8b0;
-            border-color: #b8948a;
-            color: #4d2e26;
-            animation: pulseBtn 1.5s ease-in-out infinite;
+        .players-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #3b2a1c;
+            padding: 14px 0;
+            user-select: none;
+            cursor: pointer;
+            font-size: 16px;
+            min-height: 56px;
+            touch-action: manipulation;
         }
 
-        @keyframes pulseBtn {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+        .players-header:hover {
+            color: #5a3f2a;
         }
 
-        /* Time Picker Modal */
+        .players-header span i {
+            margin-right: 10px;
+            color: #8b6349;
+        }
+
+        .players-header #toggleIcon {
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+
+        .players-header #toggleIcon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* ── INNER SCROLL: player tags ── */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 8px 0 18px 0;
+            border-top: 1px solid rgba(139, 99, 73, 0.08);
+            justify-content: center;
+            max-height: 250px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: none;
+            /* don't steal parent scroll */
+            touch-action: pan-y;
+            will-change: scroll-position;
+            contain: layout style paint;
+        }
+
+        .tags.collapsed {
+            display: none;
+        }
+
+        .tags::-webkit-scrollbar {
+            width: 3px;
+        }
+        .tags::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .tags::-webkit-scrollbar-thumb {
+            background: #d4b8a0;
+            border-radius: 8px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 18px 8px 20px;
+            border-radius: 60px;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(139, 99, 73, 0.10);
+            color: #3b2a1c;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            touch-action: manipulation;
+            flex-shrink: 0;
+            /* prevent tag squish */;
+        }
+
+        .tag .score-badge {
+            background: #3b2a1c;
+            border-radius: 30px;
+            padding: 0 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #f2e6da;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 24px;
+        }
+
+        .tag .remove {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(139, 99, 73, 0.08);
+            color: #8b6349;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            font-weight: 700;
+            touch-action: manipulation;
+        }
+
+        .tag .remove:hover {
+            background: rgba(139, 99, 73, 0.18);
+            transform: scale(1.06);
+        }
+
+        .tag .color-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .empty-tags {
+            color: #a07f67;
+            font-size: 15px;
+            font-weight: 400;
+            padding: 6px 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ── WHEEL ── */
+        .wheel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 750px;
+            aspect-ratio: 1/1;
+            margin: 8px auto 12px;
+            touch-action: none;
+            flex-shrink: 0;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #fdf8f3;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 8px 40px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            transform: translateZ(0);
+            /* GPU boost for wheel */;
+        }
+
+        #wheelCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .bottle-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 44%;
+            height: 44%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            z-index: 5;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .bottle-wrapper svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.10));
+            transition: transform 0.05s linear;
+        }
+
+        .pivot-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 35%, #ff7e7e, #cc3b3b);
+            box-shadow: 0 0 30px rgba(255, 80, 80, 0.2);
+            z-index: 6;
+            border: 2px solid #fff;
+        }
+
+        .spin-area {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .btn-spin,
+        .btn-finish {
+            padding: 18px 44px;
+            border-radius: 60px;
+            border: none;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: 0.2px;
+            position: relative;
+            touch-action: manipulation;
+            user-select: none;
+            flex: 1 1 auto;
+            justify-content: center;
+        }
+
+        .btn-spin {
+            background: #8b6349;
+            color: #fff;
+            box-shadow: 0 6px 28px rgba(139, 99, 73, 0.25);
+        }
+
+        .btn-spin::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent);
+            pointer-events: none;
+            border-radius: 60px;
+        }
+
+        .btn-spin:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 40px rgba(139, 99, 73, 0.35);
+            background: #6b4c36;
+        }
+
+        .btn-spin:active:not(:disabled) {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .btn-spin:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-spin .icon {
+            font-size: 22px;
+        }
+        .btn-spin .spinner {
+            display: none;
+            animation: spin 0.8s linear infinite;
+        }
+        .btn-spin.spinning .spinner {
+            display: inline-block;
+        }
+        .btn-spin.spinning .icon {
+            display: none;
+        }
+
+        .btn-finish {
+            background: #3b2a1c;
+            color: #f2e6da;
+            box-shadow: 0 6px 28px rgba(59, 42, 28, 0.20);
+        }
+
+        .btn-finish:hover:not(:disabled) {
+            transform: translateY(-3px);
+            background: #2a1e14;
+            box-shadow: 0 10px 40px rgba(59, 42, 28, 0.30);
+        }
+
+        .btn-finish:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .result-badge {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 19px;
+            font-weight: 500;
+            color: #7a5f4b;
+            min-height: 32px;
+            transition: 0.3s;
+        }
+        .result-badge strong {
+            color: #3b2a1c;
+            font-weight: 700;
+        }
+        .result-badge.highlight {
+            color: #3b2a1c;
+        }
+
+        /* ── MODAL ── */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            height: 100dvh;
-            background: rgba(30, 25, 22, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
+            inset: 0;
+            background: rgba(59, 42, 28, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 1.5rem;
+            padding: 24px;
+            animation: fadeIn 0.3s ease;
         }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-content {
-            background: #faf5ef;
-            border-radius: 32px;
-            padding: 2rem 1.8rem;
-            max-width: 380px;
-            width: 100%;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            transform: scale(0.95) translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-content h3 {
-            font-size: 1.3rem;
-            font-weight: 500;
-            color: #2b211b;
-            margin-bottom: 0.2rem;
-        }
-
-        .modal-content .modal-sub {
-            color: #5f5146;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .modal-content label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #3f342c;
-            margin-bottom: 0.3rem;
-            text-align: left;
-        }
-
-        .modal-content input[type="time"] {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #d6c8bc;
-            border-radius: 16px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #2b211b;
-            background: rgba(255, 250, 245, 0.6);
-            outline: none;
-            transition: border-color 0.2s;
-            font-family: inherit;
-        }
-
-        .modal-content input[type="time"]:focus {
-            border-color: #b09a8b;
-        }
-
-        .modal-actions {
+        .modal-overlay.open {
             display: flex;
-            gap: 10px;
-            margin-top: 1.2rem;
-            justify-content: flex-end;
         }
 
-        .modal-actions .btn {
-            padding: 0.5rem 1.5rem;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        /* Alarm Overlay - shows when alarm is ringing */
-        .alarm-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .modal {
+            background: #fdf8f3;
+            border-radius: 40px;
+            padding: 36px 32px 32px;
+            max-width: 520px;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
-            background: rgba(30, 25, 22, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            position: relative;
+            max-height: 90vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            padding: 2rem;
+            overflow: hidden;
+            /* keep modal clean */;
         }
 
-        .alarm-overlay.active {
-            opacity: 1;
-            pointer-events: all;
+        .modal .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #a07f67;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 4px;
+            z-index: 2;
+            touch-action: manipulation;
+        }
+        .modal .close-btn:hover {
+            color: #3b2a1c;
+            transform: rotate(90deg);
         }
 
-        .alarm-overlay .alarm-icon {
-            font-size: 4rem;
-            color: #d4b8b0;
-            margin-bottom: 0.5rem;
-            animation: ringIcon 0.8s ease-in-out infinite;
-        }
-
-        @keyframes ringIcon {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
-        }
-
-        .alarm-overlay h2 {
-            color: #fcf7f2;
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-        }
-
-        .alarm-overlay .alarm-verse {
-            color: #e8ddd4;
-            font-size: 1.2rem;
-            line-height: 1.7;
-            max-width: 400px;
-            text-align: center;
-            margin: 0.5rem 0 1.5rem;
-        }
-
-        .alarm-overlay .alarm-ref {
-            color: #c4b5a8;
-            font-size: 0.95rem;
+        .modal .selected-name {
+            font-size: 20px;
             font-weight: 500;
+            color: #7a5f4b;
+            margin-bottom: 4px;
+        }
+        .modal .selected-name strong {
+            color: #3b2a1c;
+            font-weight: 700;
+            font-size: 32px;
         }
 
-        .alarm-overlay .btn {
-            font-size: 1rem;
-            padding: 0.8rem 2.5rem;
-            background: #b09a8b;
-            border-color: #8a7566;
-            color: #fcf7f2;
+        .modal .subtitle {
+            color: #7a5f4b;
+            font-size: 16px;
+            margin-bottom: 28px;
         }
 
-        .alarm-overlay .btn:active {
-            transform: scale(0.94);
-        }
-
-        .footer {
-            margin-top: 1.2rem;
-            font-size: 0.65rem;
-            color: #a08f80;
-            border-top: 1px solid #dccfc4;
-            padding-top: 0.8rem;
-        }
-
-        .footer i {
-            margin: 0 3px;
-        }
-
-        /* Notification permission banner */
-        .perm-banner {
-            background: #e8ddd4;
-            border-radius: 16px;
-            padding: 0.5rem 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.75rem;
-            color: #3f342c;
-            display: none;
-            align-items: center;
-            gap: 10px;
+        .modal .choice-btns,
+        .modal .action-btns {
+            display: flex;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .perm-banner.show {
+        .modal .choice-btn,
+        .modal .action-btn {
+            padding: 16px 34px;
+            border-radius: 60px;
+            border: none;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 140px;
+            justify-content: center;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .modal .choice-btn.truth {
+            background: #e8d5c4;
+            color: #3b2a1c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .modal .choice-btn.truth:hover {
+            background: #dcc4b0;
+            transform: translateY(-2px);
+        }
+
+        .modal .choice-btn.dare {
+            background: #e8d5c4;
+            color: #3b2a1c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .modal .choice-btn.dare:hover {
+            background: #dcc4b0;
+            transform: translateY(-2px);
+        }
+
+        .modal .action-btn.answered,
+        .modal .action-btn.done {
+            background: #8b6349;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .modal .action-btn.answered:hover,
+        .modal .action-btn.done:hover {
+            background: #6b4c36;
+            transform: translateY(-2px);
+        }
+
+        .modal .action-btn.skip {
+            background: rgba(139, 99, 73, 0.08);
+            color: #8b6349;
+            border: 1px solid rgba(139, 99, 73, 0.10);
+        }
+        .modal .action-btn.skip:hover {
+            background: rgba(139, 99, 73, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .modal .action-btn:active,
+        .modal .choice-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .modal .action-btns .action-btn.skip {
+            min-width: 100px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ── RANKING LIST ── */
+        .ranking-item {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            margin: 4px 0;
+            border-radius: 14px;
+            border-left: 4px solid #8b6349;
+            background: rgba(255, 255, 255, 0.4);
+            font-size: 16px;
         }
 
-        .perm-banner .btn {
-            font-size: 0.7rem;
-            padding: 0.25rem 1rem;
+        .ranking-item .rank-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        @media (max-width: 400px) {
-            .container {
-                padding: 1.2rem 0.8rem;
+        .ranking-item .rank-score {
+            font-weight: 700;
+            background: #3b2a1c;
+            color: #f2e6da;
+            padding: 0 14px;
+            border-radius: 30px;
+            line-height: 28px;
+            font-size: 15px;
+        }
+
+        .ranking-item.loser {
+            border-left-color: #cc3b3b;
+            background: rgba(204, 59, 59, 0.06);
+        }
+
+        .ranking-item.loser .rank-score {
+            background: #cc3b3b;
+        }
+
+        /* ── INNER SCROLL: ranking list ── */
+        .ranking-list-container {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 4px;
+            margin: 12px 0 8px;
+            text-align: left;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: none;
+            touch-action: pan-y;
+            will-change: scroll-position;
+            contain: layout style paint;
+        }
+
+        .ranking-list-container::-webkit-scrollbar {
+            width: 3px;
+        }
+        .ranking-list-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .ranking-list-container::-webkit-scrollbar-thumb {
+            background: #d4b8a0;
+            border-radius: 8px;
+        }
+
+        .modal .btn-close-ranking {
+            margin-top: 16px;
+            padding: 12px 40px;
+            border-radius: 60px;
+            border: none;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+            background: #e8d5c4;
+            color: #3b2a1c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            touch-action: manipulation;
+            user-select: none;
+        }
+        .modal .btn-close-ranking:hover {
+            background: #dcc4b0;
+            transform: translateY(-2px);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 800px) {
+            .game-container {
+                padding: 18px 14px 24px;
+                border-radius: 32px;
+                max-height: 96vh;
+                gap: 20px;
             }
-            .time-section {
+            .logo {
+                font-size: 24px;
+            }
+            .logo i {
+                font-size: 26px;
+            }
+            .wheel-wrapper {
+                max-width: 600px;
+            }
+            .btn-spin,
+            .btn-finish {
+                padding: 16px 32px;
+                font-size: 18px;
+            }
+            .modal {
+                padding: 28px 20px 24px;
+                max-width: 440px;
+            }
+            .modal .selected-name strong {
+                font-size: 26px;
+            }
+            .modal .choice-btn,
+            .modal .action-btn {
+                padding: 14px 26px;
+                font-size: 16px;
+                min-width: 120px;
+            }
+            .input-area input {
+                font-size: 15px;
+                padding: 12px 18px;
+                min-width: 120px;
+            }
+            .input-area .btn {
+                font-size: 14px;
+                padding: 12px 18px;
+            }
+            .tag {
+                font-size: 14px;
+                padding: 6px 14px 6px 16px;
+                gap: 10px;
+            }
+            .player-count {
+                font-size: 14px;
+                padding: 5px 14px;
+            }
+            .players-section {
+                padding: 0 18px;
+            }
+            .players-header {
+                font-size: 15px;
+                padding: 12px 0;
+            }
+        }
+
+        @media (max-width: 500px) {
+            html,
+            body {
+                padding: 8px;
+            }
+
+            .game-container {
+                padding: 16px 12px 24px;
+                border-radius: 28px;
+                gap: 20px;
+                max-height: 95vh;
+                border: none;
+                box-shadow: none;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+            .logo i {
+                font-size: 24px;
+            }
+
+            .wheel-wrapper {
+                max-width: 92vw;
+                margin: 4px auto 8px;
+            }
+            .bottle-wrapper {
+                width: 48%;
+                height: 48%;
+            }
+
+            .btn-spin,
+            .btn-finish {
+                padding: 16px 24px;
+                font-size: 18px;
+                gap: 12px;
+                min-height: 56px;
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+            .btn-spin .icon {
+                font-size: 18px;
+            }
+
+            .modal {
+                padding: 24px 16px 20px;
+                border-radius: 28px;
+                max-width: 100%;
+                margin: 10px;
+                max-height: 85vh;
+            }
+            .modal .selected-name strong {
+                font-size: 22px;
+            }
+            .modal .choice-btns,
+            .modal .action-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .modal .choice-btn,
+            .modal .action-btn {
+                width: 100%;
+                max-width: 100%;
+                padding: 14px 16px;
+                font-size: 17px;
+                min-height: 52px;
+            }
+            .modal .action-btns .action-btn.skip {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .input-area input {
+                font-size: 16px;
+                padding: 14px 16px;
+                min-width: 100px;
+                min-height: 52px;
+            }
+            .input-area .btn {
+                font-size: 15px;
+                padding: 14px 18px;
+                min-height: 52px;
+            }
+
+            .tag {
+                font-size: 14px;
+                padding: 8px 14px 8px 16px;
+                gap: 10px;
+                min-height: 44px;
+            }
+            .tag .score-badge {
+                font-size: 13px;
+                padding: 0 10px;
+                line-height: 22px;
+            }
+            .tag .remove {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .player-count {
+                font-size: 14px;
+                padding: 6px 14px;
+            }
+
+            .pivot-dot {
+                width: 20px;
+                height: 20px;
+            }
+
+            .result-badge {
+                font-size: 17px;
+                min-height: 28px;
+            }
+
+            .players-section {
+                padding: 0 14px;
+                border-radius: 40px;
+            }
+            .players-header {
+                font-size: 15px;
+                padding: 12px 0;
+                min-height: 48px;
+            }
+            .tags {
+                gap: 10px;
+                padding: 8px 0 14px 0;
+                max-height: 160px;
+            }
+            .ranking-item {
+                font-size: 15px;
+                padding: 10px 12px;
+            }
+            .ranking-item .rank-score {
+                font-size: 14px;
+                line-height: 26px;
+                padding: 0 12px;
+            }
+            .modal .btn-close-ranking {
+                font-size: 16px;
+                padding: 14px 28px;
+                width: 100%;
+                min-height: 52px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .game-container {
+                padding: 12px 8px 18px;
+                gap: 16px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .logo i {
+                font-size: 20px;
+            }
+            .btn-spin,
+            .btn-finish {
+                font-size: 16px;
+                padding: 14px 18px;
+                min-height: 48px;
+            }
+            .input-area input {
+                font-size: 15px;
+                padding: 12px 14px;
+                min-height: 44px;
+            }
+            .input-area .btn {
+                font-size: 13px;
+                padding: 12px 14px;
+                min-height: 44px;
+            }
+            .tag {
+                font-size: 12px;
+                padding: 6px 10px 6px 12px;
                 gap: 6px;
+                min-height: 36px;
             }
-            .time-card {
-                padding: 0.5rem 0.2rem;
+            .tag .score-badge {
+                font-size: 11px;
+                padding: 0 6px;
+                line-height: 18px;
             }
-            .time-card .icon {
-                font-size: 1.2rem;
+            .tag .remove {
+                width: 22px;
+                height: 22px;
+                font-size: 10px;
             }
-            .time-card .time-display {
-                font-size: 0.7rem;
-            }
-            .verse-box .text {
-                font-size: 1rem;
-            }
-            .modal-content {
-                padding: 1.5rem 1.2rem;
-            }
-            .alarm-overlay .alarm-verse {
-                font-size: 1rem;
-            }
-            .alarm-overlay .alarm-icon {
-                font-size: 3rem;
+            .players-header {
+                font-size: 13px;
+                padding: 10px 0;
+                min-height: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-icon"><i class="fas fa-feather-alt"></i></div>
-        <h1>Daily Devotion</h1>
-        <div class="subtitle">"Let your emotions find rest in His word"</div>
-
-        <!-- Notification permission banner -->
-        <div class="perm-banner" id="permBanner">
-            <span><i class="fas fa-bell"></i> Enable notifications for alarms</span>
-            <button class="btn btn-primary" id="enableNotifBtn">Enable</button>
-        </div>
-
-        <!-- Time cards -->
-        <div class="time-section">
-            <div class="time-card" id="morningCard" data-slot="morning">
-                <span class="icon"><i class="fas fa-sun"></i></span>
-                <div class="label">Morning</div>
-                <div class="time-display" id="morningTime">6:00 AM</div>
-                <span class="status" id="morningStatus"><i class="fas fa-clock"></i> waiting</span>
-                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
+    <div class="game-container" id="app">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-wine-bottle"></i>
+                Spin The Bottle
             </div>
-            <div class="time-card" id="afternoonCard" data-slot="afternoon">
-                <span class="icon"><i class="fas fa-cloud-sun"></i></span>
-                <div class="label">Afternoon</div>
-                <div class="time-display" id="afternoonTime">12:00 PM</div>
-                <span class="status" id="afternoonStatus"><i class="fas fa-clock"></i> waiting</span>
-                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
-            </div>
-            <div class="time-card" id="eveningCard" data-slot="evening">
-                <span class="icon"><i class="fas fa-moon"></i></span>
-                <div class="label">Evening</div>
-                <div class="time-display" id="eveningTime">8:00 PM</div>
-                <span class="status" id="eveningStatus"><i class="fas fa-clock"></i> waiting</span>
-                <div class="edit-hint"><i class="fas fa-pen"></i> tap to change</div>
+            <div class="player-count">
+                <i class="fas fa-users" style="margin-right:8px;opacity:0.4;"></i>
+                <span id="playerCount">0</span> players
             </div>
         </div>
 
-        <!-- Verse Display -->
-        <div class="verse-box" id="verseBox">
-            <div class="ref" id="verseRef">Psalm 23:1</div>
-            <div class="text" id="verseText">The Lord is my shepherd; I shall not want.</div>
-            <div class="time-tag" id="verseTimeTag"><i class="fas fa-sun"></i> Morning verse</div>
+        <!-- INPUT -->
+        <div class="input-area">
+            <input type="text" id="nameInput" placeholder="Add a name…" maxlength="20" autocomplete="off" />
+            <button class="btn btn-primary" id="addBtn"><i class="fas fa-plus"></i> Add</button>
+            <button class="btn btn-danger" id="clearBtn"><i class="fas fa-trash-alt"></i> Clear</button>
         </div>
 
-        <!-- Controls -->
-        <div class="controls">
-            <button class="btn" id="nextVerseBtn"><i class="fas fa-sync-alt"></i> Next Verse</button>
-            <button class="btn btn-danger" id="resetBtn"><i class="fas fa-trash-alt"></i> Reset</button>
-            <button class="btn btn-success" id="testAlarmBtn"><i class="fas fa-bell"></i> Test Alarm</button>
+        <!-- PLAYERS SECTION (collapsible) -->
+        <div class="players-section">
+            <div class="players-header" id="playersHeader">
+                <span><i class="fas fa-user-friends"></i> Players (<span id="playerCountHeader">0</span>)</span>
+                <span id="toggleIcon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="tags collapsed" id="tagsContainer">
+                <!-- tags render here -->
+            </div>
         </div>
 
-        <div class="footer">
-            <i class="fas fa-clock"></i> Tap a time to change it <i class="fas fa-bell"></i>
+        <!-- WHEEL -->
+        <div class="wheel-wrapper">
+            <div class="wheel-container" id="wheelContainer">
+                <canvas id="wheelCanvas" width="800" height="800"></canvas>
+                <div class="bottle-wrapper" id="bottleWrapper">
+                    <svg viewBox="-60 -140 120 260" id="bottleSvg">
+                        <defs>
+                            <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(255,80,80,0.35)"/>
+                                <stop offset="40%" stop-color="rgba(220,40,40,0.25)"/>
+                                <stop offset="70%" stop-color="rgba(180,20,20,0.30)"/>
+                                <stop offset="100%" stop-color="rgba(140,10,10,0.40)"/>
+                            </linearGradient>
+                            <linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f7e68a"/>
+                                <stop offset="30%" stop-color="#d4b85a"/>
+                                <stop offset="70%" stop-color="#b8943a"/>
+                                <stop offset="100%" stop-color="#8a6a2a"/>
+                            </linearGradient>
+                            <filter id="bottleShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="rgba(0,0,0,0.15)"/>
+                            </filter>
+                        </defs>
+                        <ellipse cx="0" cy="20" rx="48" ry="14" fill="rgba(0,0,0,0.08)" filter="url(#bottleShadow)"/>
+                        <rect x="-42" y="-54" width="84" height="108" rx="16" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                        <rect x="-38" y="-50" width="76" height="100" rx="13" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <rect x="-16" y="-106" width="32" height="54" rx="7" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+                        <rect x="-12" y="-102" width="7" height="44" rx="3.5" fill="rgba(255,255,255,0.15)"/>
+                        <rect x="-20" y="-120" width="40" height="18" rx="6" fill="url(#capGrad)" stroke="rgba(255,215,140,0.3)" stroke-width="0.5"/>
+                        <rect x="-16" y="-118" width="32" height="5" rx="2.5" fill="rgba(255,255,200,0.2)"/>
+                        <rect x="-14" y="-118" width="12" height="4" rx="2" fill="rgba(255,255,220,0.25)"/>
+                        <rect x="-34" y="-44" width="10" height="68" rx="5" fill="rgba(255,255,255,0.10)" transform="rotate(-4,-28,-10)"/>
+                        <rect x="-30" y="-34" width="4" height="40" rx="2" fill="rgba(255,255,255,0.08)" transform="rotate(-4,-28,-12)"/>
+                        <ellipse cx="0" cy="48" rx="34" ry="7" fill="rgba(255,255,255,0.04)"/>
+                        <rect x="-40" y="-52" width="3" height="104" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+                        <polygon points="0,-128 -8,-138 8,-138" fill="#e84a5f" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                        <polygon points="0,-128 -4,-134 4,-134" fill="#ff6b81"/>
+                    </svg>
+                </div>
+                <div class="pivot-dot" id="pivotDot"></div>
+            </div>
         </div>
+
+        <!-- SPIN + FINISH -->
+        <div class="spin-area">
+            <button class="btn-spin" id="spinBtn">
+                <span class="icon"><i class="fas fa-rotate-right"></i></span>
+                <span class="spinner"><i class="fas fa-circle-notch"></i></span>
+                SPIN
+            </button>
+            <button class="btn-finish" id="finishBtn" disabled>
+                <i class="fas fa-trophy"></i> Finish
+            </button>
+        </div>
+        <div class="result-badge" id="resultBadge">Add at least 2 names to play</div>
     </div>
 
-    <!-- Time Picker Modal -->
-    <div class="modal-overlay" id="timeModal">
-        <div class="modal-content">
-            <h3 id="modalTitle"><i class="fas fa-clock"></i> Set Morning Time</h3>
-            <div class="modal-sub" id="modalSub">Choose when you want your morning devotion</div>
-            <label for="timePicker"><i class="fas fa-hourglass-half"></i> Select time:</label>
-            <input type="time" id="timePicker" value="06:00">
-            <div class="modal-actions">
-                <button class="btn" id="modalCancel"><i class="fas fa-times"></i> Cancel</button>
-                <button class="btn btn-primary" id="modalSave"><i class="fas fa-save"></i> Save</button>
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="close-btn" id="modalClose"><i class="fas fa-times"></i></button>
+            <div id="modalContent">
+                <!-- Dynamic content goes here -->
             </div>
         </div>
-    </div>
-
-    <!-- Alarm Overlay - shows when alarm is ringing -->
-    <div class="alarm-overlay" id="alarmOverlay">
-        <div class="alarm-icon"><i class="fas fa-bell"></i></div>
-        <h2><i class="fas fa-pray"></i> Devotion Time</h2>
-        <div class="alarm-verse" id="alarmVerse">The Lord is my shepherd; I shall not want.</div>
-        <div class="alarm-ref" id="alarmRef">Psalm 23:1</div>
-        <button class="btn" id="dismissAlarmBtn"><i class="fas fa-check"></i> Dismiss</button>
     </div>
 
     <script>
-        // ============================================================
-        // BIBLE DATA — 60+ verses
-        // ============================================================
-        const bibleVerses = [
-            { ref: "Psalm 23:1", text: "The Lord is my shepherd; I shall not want." },
-            { ref: "Psalm 23:4", text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me." },
-            { ref: "Psalm 27:1", text: "The Lord is my light and my salvation— whom shall I fear? The Lord is the stronghold of my life— of whom shall I be afraid?" },
-            { ref: "Psalm 34:18", text: "The Lord is near to the brokenhearted and saves those who are crushed in spirit." },
-            { ref: "Psalm 46:1", text: "God is our refuge and strength, an ever-present help in trouble." },
-            { ref: "Psalm 46:10", text: "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth." },
-            { ref: "Psalm 55:22", text: "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken." },
-            { ref: "Psalm 91:1-2", text: "Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty. I will say of the Lord, 'He is my refuge and my fortress, my God, in whom I trust.'" },
-            { ref: "Psalm 118:24", text: "The Lord has done it this very day; let us rejoice today and be glad." },
-            { ref: "Psalm 121:1-2", text: "I lift up my eyes to the mountains— where does my help come from? My help comes from the Lord, the Maker of heaven and earth." },
-            { ref: "Psalm 136:1", text: "Give thanks to the Lord, for he is good. His love endures forever." },
-            { ref: "Proverbs 3:5-6", text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight." },
-            { ref: "Proverbs 16:3", text: "Commit to the Lord whatever you do, and he will establish your plans." },
-            { ref: "Proverbs 17:22", text: "A cheerful heart is good medicine, but a crushed spirit dries up the bones." },
-            { ref: "Isaiah 40:31", text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint." },
-            { ref: "Isaiah 41:10", text: "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand." },
-            { ref: "Isaiah 43:2", text: "When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you." },
-            { ref: "Jeremiah 29:11", text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." },
-            { ref: "Lamentations 3:22-23", text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness." },
-            { ref: "Matthew 5:4", text: "Blessed are those who mourn, for they will be comforted." },
-            { ref: "Matthew 6:34", text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own." },
-            { ref: "Matthew 11:28", text: "Come to me, all you who are weary and burdened, and I will give you rest." },
-            { ref: "Mark 11:24", text: "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours." },
-            { ref: "John 3:16", text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life." },
-            { ref: "John 14:27", text: "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid." },
-            { ref: "John 16:33", text: "I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world." },
-            { ref: "Romans 8:28", text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose." },
-            { ref: "Romans 8:38-39", text: "For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord." },
-            { ref: "Romans 12:12", text: "Be joyful in hope, patient in affliction, faithful in prayer." },
-            { ref: "Romans 15:13", text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit." },
-            { ref: "1 Corinthians 13:4-5", text: "Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It does not dishonor others, it is not self-seeking, it is not easily angered, it keeps no record of wrongs." },
-            { ref: "1 Corinthians 16:14", text: "Do everything in love." },
-            { ref: "2 Corinthians 1:3-4", text: "Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort, who comforts us in all our troubles." },
-            { ref: "2 Corinthians 5:17", text: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" },
-            { ref: "2 Corinthians 12:9", text: "My grace is sufficient for you, for my power is made perfect in weakness." },
-            { ref: "Galatians 5:22-23", text: "But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control." },
-            { ref: "Ephesians 2:8", text: "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God." },
-            { ref: "Ephesians 4:32", text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you." },
-            { ref: "Philippians 4:6-7", text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus." },
-            { ref: "Philippians 4:13", text: "I can do all this through him who gives me strength." },
-            { ref: "Colossians 3:2", text: "Set your minds on things above, not on earthly things." },
-            { ref: "Colossians 3:12", text: "Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience." },
-            { ref: "1 Thessalonians 5:16-18", text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus." },
-            { ref: "2 Timothy 1:7", text: "For God has not given us a spirit of fear, but of power and of love and of a sound mind." },
-            { ref: "Hebrews 11:1", text: "Now faith is confidence in what we hope for and assurance about what we do not see." },
-            { ref: "Hebrews 13:5", text: "Keep your lives free from the love of money and be content with what you have, because God has said, 'Never will I leave you; never will I forsake you.'" },
-            { ref: "James 1:5", text: "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you." },
-            { ref: "James 5:13", text: "Is anyone among you in trouble? Let them pray. Is anyone happy? Let them sing songs of praise." },
-            { ref: "1 Peter 5:7", text: "Cast all your anxiety on him because he cares for you." },
-            { ref: "1 John 1:9", text: "If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness." },
-            { ref: "1 John 4:8", text: "Whoever does not love does not know God, because God is love." },
-            { ref: "1 John 4:19", text: "We love because he first loved us." },
-            { ref: "Revelation 21:4", text: "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain, for the old order of things has passed away." },
-            { ref: "Psalm 34:8", text: "Taste and see that the Lord is good; blessed is the one who takes refuge in him." },
-            { ref: "Psalm 37:4", text: "Take delight in the Lord, and he will give you the desires of your heart." },
-            { ref: "Psalm 119:105", text: "Your word is a lamp for my feet, a light on my path." },
-            { ref: "Proverbs 18:10", text: "The name of the Lord is a fortified tower; the righteous run to it and are safe." },
-            { ref: "Isaiah 43:19", text: "See, I am doing a new thing! Now it springs up; do you not perceive it? I am making a way in the wilderness and streams in the wasteland." },
-            { ref: "Romans 15:13", text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit." },
-            { ref: "2 Corinthians 9:8", text: "And God is able to bless you abundantly, so that in all things at all times you may have all that you need, you will abound in every good work." },
-            { ref: "Ephesians 3:20", text: "Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us." }
-        ];
+        // ================================================================
+        //  GAME STATE
+        // ================================================================
+        const state = {
+            names: [],
+            scores: {},
+            isSpinning: false,
+            currentAngle: 0,
+            selectedName: null,
+            currentChoice: null,
+        };
 
-        // ============================================================
-        // STATE MANAGEMENT
-        // ============================================================
-        const STORAGE_KEY = 'dailyDevotionState';
+        // DOM refs
+        const nameInput = document.getElementById('nameInput');
+        const addBtn = document.getElementById('addBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const wheelContainer = document.getElementById('wheelContainer');
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+        const bottleWrapper = document.getElementById('bottleWrapper');
+        const spinBtn = document.getElementById('spinBtn');
+        const finishBtn = document.getElementById('finishBtn');
+        const resultBadge = document.getElementById('resultBadge');
+        const playerCount = document.getElementById('playerCount');
+        const playerCountHeader = document.getElementById('playerCountHeader');
+        const playersHeader = document.getElementById('playersHeader');
+        const toggleIcon = document.getElementById('toggleIcon');
 
-        function getDefaultState() {
-            const today = new Date().toDateString();
-            return {
-                date: today,
-                times: {
-                    morning: 360,
-                    afternoon: 720,
-                    evening: 1200
-                },
-                morning: { verseIndex: null, shown: false },
-                afternoon: { verseIndex: null, shown: false },
-                evening: { verseIndex: null, shown: false },
-                usedIndices: [],
-                alarmTriggered: false,
-                alarmSlot: null
-            };
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalContent = document.getElementById('modalContent');
+
+        // ================================================================
+        //  TOGGLE PLAYERS LIST
+        // ================================================================
+        let isPlayersOpen = false;
+
+        playersHeader.addEventListener('click', () => {
+            isPlayersOpen = !isPlayersOpen;
+            tagsContainer.classList.toggle('collapsed', !isPlayersOpen);
+            toggleIcon.classList.toggle('rotated', isPlayersOpen);
+        });
+
+        // ================================================================
+        //  WHEEL COLORS
+        // ================================================================
+        function getWheelColor(index, total) {
+            const colors = [
+                '#f0e3d9', '#e8d5c4', '#f5eae0', '#e0cebc', '#ecdccf',
+                '#f2e6da', '#e4d2c0', '#f8efe6', '#dcc6b4', '#ecdccf',
+                '#f0e3d9', '#e8d5c4', '#f5eae0', '#e0cebc', '#f2e6da'
+            ];
+            return colors[index % colors.length];
         }
 
-        let state = loadState();
+        // ================================================================
+        //  DRAW WHEEL
+        // ================================================================
+        function drawWheel() {
+            const names = state.names;
+            const count = names.length;
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const radius = Math.min(w, h) * 0.44;
 
-        function loadState() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    const today = new Date().toDateString();
-                    if (parsed.date === today) {
-                        return parsed;
-                    }
-                }
-            } catch (e) { /* ignore */ }
-            return getDefaultState();
-        }
+            ctx.clearRect(0, 0, w, h);
 
-        function saveState() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            } catch (e) { /* ignore */ }
-        }
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#fdf8f3';
+            ctx.fill();
 
-        // ============================================================
-        // VERSE MANAGEMENT
-        // ============================================================
-        function getUniqueVerse() {
-            const total = bibleVerses.length;
-            if (state.usedIndices.length >= total) {
-                state.usedIndices = [];
+            if (count === 0) {
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = '#d4b8a0';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([8, 8]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                return;
             }
 
-            const available = [];
-            for (let i = 0; i < total; i++) {
-                if (!state.usedIndices.includes(i)) {
-                    available.push(i);
-                }
+            const angleStep = (Math.PI * 2) / count;
+
+            for (let i = 0; i < count; i++) {
+                const startAngle = i * angleStep - Math.PI / 2;
+                const endAngle = (i + 1) * angleStep - Math.PI / 2;
+                const color = getWheelColor(i, count);
+
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, radius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
             }
 
-            if (available.length === 0) {
-                state.usedIndices = [];
-                return 0;
-            }
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#3b2a1c';
+            const fontSize = Math.max(12, Math.min(20, 44 / Math.sqrt(count) + 6));
+            ctx.font = `600 ${fontSize}px Inter, sans-serif`;
 
-            const randomIdx = available[Math.floor(Math.random() * available.length)];
-            state.usedIndices.push(randomIdx);
-            saveState();
-            return randomIdx;
-        }
+            for (let i = 0; i < count; i++) {
+                const midAngle = i * angleStep + angleStep / 2 - Math.PI / 2;
+                const labelRadius = radius * 0.70;
+                const x = cx + labelRadius * Math.cos(midAngle);
+                const y = cy + labelRadius * Math.sin(midAngle);
 
-        function getVerseForSlot(slotName) {
-            const slot = state[slotName];
-            if (!slot || slot.verseIndex === null || slot.verseIndex === undefined) {
-                const idx = getUniqueVerse();
-                slot.verseIndex = idx;
-                slot.shown = false;
-                saveState();
-                return idx;
-            }
-            return slot.verseIndex;
-        }
-
-        function markSlotShown(slotName) {
-            const slot = state[slotName];
-            if (slot) {
-                slot.shown = true;
-                saveState();
-                updateUI();
-            }
-        }
-
-        function resetSlotShown(slotName) {
-            const slot = state[slotName];
-            if (slot) {
-                slot.shown = false;
-                saveState();
-                updateUI();
-            }
-        }
-
-        // ============================================================
-        // TIME HELPERS
-        // ============================================================
-        function minutesToTimeStr(minutes) {
-            const h = Math.floor(minutes / 60);
-            const m = minutes % 60;
-            const ampm = h >= 12 ? 'PM' : 'AM';
-            const h12 = h % 12 || 12;
-            return `${h12}:${String(m).padStart(2, '0')} ${ampm}`;
-        }
-
-        function timeStrToMinutes(str) {
-            const [time, ampm] = str.split(' ');
-            let [h, m] = time.split(':').map(Number);
-            if (ampm === 'PM' && h !== 12) h += 12;
-            if (ampm === 'AM' && h === 12) h = 0;
-            return h * 60 + m;
-        }
-
-        function getCurrentMinutes() {
-            const now = new Date();
-            return now.getHours() * 60 + now.getMinutes();
-        }
-
-        // ============================================================
-        // LONG ALARM SOUND - Persistent, looping, won't stop until dismissed
-        // ============================================================
-        let alarmAudioCtx = null;
-        let alarmOscillators = [];
-        let alarmGainNodes = [];
-        let alarmIntervalId = null;
-        let isAlarmPlaying = false;
-
-        function startLongAlarm() {
-            if (isAlarmPlaying) return;
-
-            try {
-                if (!alarmAudioCtx) {
-                    alarmAudioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                let name = names[i];
+                const maxWidth = radius * 0.50;
+                let fSize = fontSize;
+                ctx.font = `600 ${fSize}px Inter, sans-serif`;
+                let metrics = ctx.measureText(name);
+                if (metrics.width > maxWidth) {
+                    fSize = fSize * (maxWidth / metrics.width) * 0.92;
+                    ctx.font = `600 ${fSize}px Inter, sans-serif`;
                 }
 
-                // Resume context if suspended (needed for iOS)
-                if (alarmAudioCtx.state === 'suspended') {
-                    alarmAudioCtx.resume();
-                }
+                ctx.shadowColor = 'rgba(255,255,255,0.7)';
+                ctx.shadowBlur = 4;
+                ctx.fillStyle = '#3b2a1c';
+                ctx.fillText(name, x, y);
+                ctx.shadowBlur = 0;
+            }
 
-                isAlarmPlaying = true;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
 
-                // Create a calming, persistent chime pattern that loops
-                function playChimePattern() {
-                    if (!isAlarmPlaying) return;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius * 0.93, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(139, 99, 73, 0.08)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
 
-                    const now = alarmAudioCtx.currentTime;
-
-                    // Soft, relaxing chime pattern - plays repeatedly
-                    const notes = [
-                        { freq: 523.25, time: 0, duration: 0.6, vol: 0.10 },
-                        { freq: 659.25, time: 0.2, duration: 0.5, vol: 0.08 },
-                        { freq: 783.99, time: 0.4, duration: 0.5, vol: 0.08 },
-                        { freq: 1046.50, time: 0.7, duration: 0.8, vol: 0.06 },
-                        { freq: 880.00, time: 1.1, duration: 0.6, vol: 0.05 },
-                        { freq: 659.25, time: 1.5, duration: 0.8, vol: 0.05 }
-                    ];
-
-                    notes.forEach(n => {
-                        const osc = alarmAudioCtx.createOscillator();
-                        const gain = alarmAudioCtx.createGain();
-                        osc.type = 'sine';
-                        const detune = (Math.random() - 0.5) * 4;
-                        osc.frequency.value = n.freq + detune;
-
-                        gain.gain.setValueAtTime(n.vol, now + n.time);
-                        gain.gain.exponentialRampToValueAtTime(0.001, now + n.time + n.duration);
-
-                        osc.connect(gain);
-                        gain.connect(alarmAudioCtx.destination);
-
-                        // Store for cleanup
-                        alarmOscillators.push(osc);
-                        alarmGainNodes.push(gain);
-
-                        osc.start(now + n.time);
-                        osc.stop(now + n.time + n.duration + 0.1);
-                    });
-
-                    // Soft pad
-                    const pad = alarmAudioCtx.createOscillator();
-                    const padGain = alarmAudioCtx.createGain();
-                    pad.type = 'sine';
-                    pad.frequency.value = 392;
-                    padGain.gain.setValueAtTime(0.03, now);
-                    padGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
-                    pad.connect(padGain);
-                    padGain.connect(alarmAudioCtx.destination);
-                    alarmOscillators.push(pad);
-                    alarmGainNodes.push(padGain);
-                    pad.start(now);
-                    pad.stop(now + 2.6);
-
-                    // Gentle wind chime
-                    for (let i = 0; i < 4; i++) {
-                        const osc2 = alarmAudioCtx.createOscillator();
-                        const gain2 = alarmAudioCtx.createGain();
-                        osc2.type = 'sine';
-                        const baseFreq = 500 + Math.random() * 400;
-                        osc2.frequency.value = baseFreq;
-                        gain2.gain.setValueAtTime(0.02, now + 0.8 + i * 0.3);
-                        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.8 + i * 0.3 + 0.4);
-                        osc2.connect(gain2);
-                        gain2.connect(alarmAudioCtx.destination);
-                        alarmOscillators.push(osc2);
-                        alarmGainNodes.push(gain2);
-                        osc2.start(now + 0.8 + i * 0.3);
-                        osc2.stop(now + 0.8 + i * 0.3 + 0.5);
-                    }
-                }
-
-                // Play first pattern immediately
-                playChimePattern();
-
-                // Schedule repeating patterns every 3 seconds
-                let patternCount = 0;
-                alarmIntervalId = setInterval(() => {
-                    if (!isAlarmPlaying) {
-                        clearInterval(alarmIntervalId);
-                        return;
-                    }
-                    // Clean up old oscillators periodically
-                    if (patternCount % 3 === 0) {
-                        alarmOscillators = [];
-                        alarmGainNodes = [];
-                    }
-                    playChimePattern();
-                    patternCount++;
-
-                    // Vibrate on each pattern
-                    if (navigator.vibrate) {
-                        navigator.vibrate([100, 80, 100]);
-                    }
-                }, 3000);
-
-                // Also vibrate continuously pattern
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 80, 100, 80, 150]);
-                }
-
-            } catch (e) {
-                console.log('Alarm sound error:', e);
-                // Fallback: try simple beep
-                try {
-                    const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = 523;
-                    gain.gain.value = 0.1;
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 1);
-                } catch (e2) { /* ignore */ }
+            for (let i = 0; i < count; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const dotR = radius * 0.97;
+                const dx = cx + dotR * Math.cos(angle);
+                const dy = cy + dotR * Math.sin(angle);
+                ctx.beginPath();
+                ctx.arc(dx, dy, 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(139, 99, 73, 0.15)';
+                ctx.fill();
             }
         }
 
-        function stopLongAlarm() {
-            isAlarmPlaying = false;
+        // ================================================================
+        //  GET WINNER
+        // ================================================================
+        function getWinner(angleDeg) {
+            const names = state.names;
+            const count = names.length;
+            if (count === 0) return null;
 
-            if (alarmIntervalId) {
-                clearInterval(alarmIntervalId);
-                alarmIntervalId = null;
-            }
+            let pointerAngle = ((270 + angleDeg) % 360 + 360) % 360;
+            const step = 360 / count;
 
-            // Stop all oscillators
-            alarmOscillators.forEach(osc => {
-                try {
-                    if (osc.stop) osc.stop();
-                } catch (e) { /* ignore */ }
-            });
-            alarmOscillators = [];
+            for (let i = 0; i < count; i++) {
+                let start = (i * step - 90) % 360;
+                let end = ((i + 1) * step - 90) % 360;
+                if (start < 0) start += 360;
+                if (end < 0) end += 360;
 
-            alarmGainNodes.forEach(gain => {
-                try {
-                    if (gain.gain) gain.gain.setValueAtTime(0, 0);
-                } catch (e) { /* ignore */ }
-            });
-            alarmGainNodes = [];
-
-            // Close context to free resources
-            if (alarmAudioCtx && alarmAudioCtx.state !== 'closed') {
-                try {
-                    alarmAudioCtx.close();
-                } catch (e) { /* ignore */ }
-                alarmAudioCtx = null;
-            }
-
-            // Stop vibration
-            if (navigator.vibrate) {
-                navigator.vibrate(0);
-            }
-        }
-
-        // ============================================================
-        // NOTIFICATIONS
-        // ============================================================
-        let notificationPermission = false;
-
-        function requestNotificationPermission() {
-            if ('Notification' in window) {
-                if (Notification.permission === 'granted') {
-                    notificationPermission = true;
-                    document.getElementById('permBanner').classList.remove('show');
-                    return true;
-                } else if (Notification.permission === 'denied') {
-                    document.getElementById('permBanner').classList.remove('show');
-                    return false;
+                if (start < end) {
+                    if (pointerAngle >= start && pointerAngle < end) return names[i];
                 } else {
-                    document.getElementById('permBanner').classList.add('show');
-                    return false;
+                    if (pointerAngle >= start || pointerAngle < end) return names[i];
                 }
             }
-            return false;
+            return names[count - 1];
         }
 
-        function sendNotification(title, body) {
-            if (notificationPermission && 'Notification' in window) {
-                try {
-                    new Notification(title, {
-                        body: body,
-                        icon: '📖',
-                        silent: false,
-                        vibrate: [150, 100, 150, 100, 200]
-                    });
-                } catch (e) { /* ignore */ }
-            }
+        // ================================================================
+        //  RENDER
+        // ================================================================
+        function renderWheel() {
+            drawWheel();
+            updatePlayerCount();
         }
 
-        document.getElementById('enableNotifBtn').addEventListener('click', async function() {
-            if ('Notification' in window) {
-                const result = await Notification.requestPermission();
-                if (result === 'granted') {
-                    notificationPermission = true;
-                    document.getElementById('permBanner').classList.remove('show');
+        function updatePlayerCount() {
+            const count = state.names.length;
+            playerCount.textContent = count;
+            playerCountHeader.textContent = count;
+            const empty = document.querySelector('.empty-tags');
+
+            if (count === 0) {
+                if (!empty) {
+                    const span = document.createElement('span');
+                    span.className = 'empty-tags';
+                    span.innerHTML = '<i class="fas fa-plus-circle" style="margin-right:8px;"></i>Add at least 2 names';
+                    tagsContainer.appendChild(span);
                 }
-            }
-        });
-
-        // ============================================================
-        // ALARM TRIGGER
-        // ============================================================
-        function triggerAlarm(slotName) {
-            const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
-            const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
-            const slot = state[slotName];
-
-            // Get verse
-            const verseIdx = getVerseForSlot(slotName);
-            const verse = bibleVerses[verseIdx];
-
-            if (verse) {
-                // Update display
-                document.getElementById('verseRef').textContent = verse.ref;
-                document.getElementById('verseText').textContent = verse.text;
-                document.getElementById('verseTimeTag').textContent = `${icons[slotName]} ${labels[slotName]} verse`;
-
-                // Show alarm overlay
-                document.getElementById('alarmVerse').textContent = verse.text;
-                document.getElementById('alarmRef').textContent = verse.ref;
-                document.getElementById('alarmOverlay').classList.add('active');
-
-                // Start long alarm sound
-                startLongAlarm();
-
-                // Send notification
-                sendNotification(
-                    `🔔 ${labels[slotName]} Devotion`,
-                    `${verse.ref}: ${verse.text.substring(0, 60)}...`
-                );
-
-                // Mark as shown
-                markSlotShown(slotName);
-
-                // Update state
-                state.alarmTriggered = true;
-                state.alarmSlot = slotName;
-                saveState();
-                updateUI();
-            }
-        }
-
-        // ============================================================
-        // DISMISS ALARM
-        // ============================================================
-        function dismissAlarm() {
-            stopLongAlarm();
-            document.getElementById('alarmOverlay').classList.remove('active');
-            state.alarmTriggered = false;
-            state.alarmSlot = null;
-            saveState();
-            updateUI();
-        }
-
-        document.getElementById('dismissAlarmBtn').addEventListener('click', dismissAlarm);
-
-        // ============================================================
-        // CHECK SCHEDULED TIMES
-        // ============================================================
-        let lastCheckedMinute = -1;
-
-        function checkScheduledTimes() {
-            const currentMin = getCurrentMinutes();
-            if (currentMin === lastCheckedMinute) return false;
-            lastCheckedMinute = currentMin;
-
-            const slots = ['morning', 'afternoon', 'evening'];
-
-            slots.forEach(slotName => {
-                const slotTime = state.times[slotName];
-                const slot = state[slotName];
-                const isShown = slot ? slot.shown : false;
-
-                // Check if current time matches slot time (within 1 minute)
-                // Also check if alarm hasn't been triggered for this slot today
-                if (Math.abs(currentMin - slotTime) <= 1 && !isShown) {
-                    triggerAlarm(slotName);
+                if (!tagsContainer.classList.contains('collapsed')) {
+                    tagsContainer.classList.add('collapsed');
+                    isPlayersOpen = false;
+                    toggleIcon.classList.remove('rotated');
                 }
+            } else {
+                const existing = document.querySelector('.empty-tags');
+                if (existing) existing.remove();
+            }
+
+            spinBtn.disabled = count < 2;
+            finishBtn.disabled = count < 2;
+
+            if (count >= 2 && resultBadge.textContent.includes('Add at least')) {
+                resultBadge.textContent = 'Ready to spin ✦';
+                resultBadge.className = 'result-badge';
+            }
+        }
+
+        function renderTags() {
+            document.querySelectorAll('.tag').forEach(el => el.remove());
+            state.names.forEach((name, i) => {
+                const color = getWheelColor(i, state.names.length || 1);
+                const score = state.scores[name] || 0;
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `
+                    <span class="color-dot" style="background:${color};"></span>
+                    ${name}
+                    <span class="score-badge">${score}</span>
+                    <button class="remove" data-index="${i}"><i class="fas fa-times"></i></button>
+                `;
+                tagsContainer.appendChild(tag);
             });
-
-            return true;
+            document.querySelectorAll('.tag .remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(btn.dataset.index);
+                    removeName(index);
+                });
+            });
+            updatePlayerCount();
         }
 
-        // ============================================================
-        // UPDATE UI
-        // ============================================================
-        function updateUI() {
-            const slots = ['morning', 'afternoon', 'evening'];
-            const statusIds = ['morningStatus', 'afternoonStatus', 'eveningStatus'];
-            const timeIds = ['morningTime', 'afternoonTime', 'eveningTime'];
+        // ================================================================
+        //  NAME MANAGEMENT
+        // ================================================================
+        function addName() {
+            const raw = nameInput.value.trim();
+            if (!raw) return;
+            if (state.names.includes(raw)) {
+                nameInput.value = '';
+                nameInput.placeholder = 'Already added!';
+                setTimeout(() => nameInput.placeholder = 'Add a name…', 1500);
+                return;
+            }
+            if (state.names.length >= 20) {
+                nameInput.placeholder = 'Max 20 names!';
+                setTimeout(() => nameInput.placeholder = 'Add a name…', 1500);
+                return;
+            }
+            state.names.push(raw);
+            state.scores[raw] = 0;
+            nameInput.value = '';
+            nameInput.focus();
+            renderTags();
+            renderWheel();
+            resultBadge.textContent = 'Ready to spin ✦';
+            resultBadge.className = 'result-badge';
+            if (state.names.length === 1) {
+                if (tagsContainer.classList.contains('collapsed')) {
+                    tagsContainer.classList.remove('collapsed');
+                    isPlayersOpen = true;
+                    toggleIcon.classList.add('rotated');
+                }
+            }
+        }
 
-            slots.forEach((slot, i) => {
-                const slotState = state[slot];
-                const statusEl = document.getElementById(statusIds[i]);
-                const timeEl = document.getElementById(timeIds[i]);
+        function removeName(index) {
+            if (state.isSpinning) return;
+            const name = state.names[index];
+            state.names.splice(index, 1);
+            delete state.scores[name];
+            renderTags();
+            renderWheel();
+            if (state.names.length < 2) {
+                resultBadge.textContent = 'Add at least 2 names to play';
+                resultBadge.className = 'result-badge';
+            } else {
+                resultBadge.textContent = 'Ready to spin ✦';
+                resultBadge.className = 'result-badge';
+            }
+            modalOverlay.classList.remove('open');
+        }
 
-                // Update time display
-                const timeMin = state.times[slot];
-                timeEl.textContent = minutesToTimeStr(timeMin);
+        function clearAll() {
+            if (state.isSpinning) return;
+            if (state.names.length === 0) return;
+            if (confirm('Remove all names?')) {
+                state.names = [];
+                state.scores = {};
+                renderTags();
+                renderWheel();
+                resultBadge.textContent = 'Add at least 2 names to play';
+                resultBadge.className = 'result-badge';
+                modalOverlay.classList.remove('open');
+                if (!tagsContainer.classList.contains('collapsed')) {
+                    tagsContainer.classList.add('collapsed');
+                    isPlayersOpen = false;
+                    toggleIcon.classList.remove('rotated');
+                }
+            }
+        }
 
-                // Update status
-                if (state.alarmTriggered && state.alarmSlot === slot) {
-                    statusEl.innerHTML = '<i class="fas fa-bell"></i> ringing';
-                    statusEl.className = 'status alarm';
-                } else if (slotState && slotState.shown) {
-                    statusEl.innerHTML = '<i class="fas fa-check-circle"></i> done';
-                    statusEl.className = 'status done';
+        // ================================================================
+        //  SPIN
+        // ================================================================
+        function setBottleAngle(deg) {
+            bottleWrapper.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+            state.currentAngle = deg;
+        }
+
+        function spinBottle() {
+            if (state.isSpinning) return;
+            if (state.names.length < 2) {
+                resultBadge.textContent = 'Add at least 2 names!';
+                resultBadge.className = 'result-badge highlight';
+                return;
+            }
+
+            state.isSpinning = true;
+            spinBtn.disabled = true;
+            spinBtn.classList.add('spinning');
+            resultBadge.textContent = 'Spinning…';
+            resultBadge.className = 'result-badge highlight';
+
+            const extraRotations = 5 + Math.random() * 6;
+            const targetAngle = extraRotations * 360 + Math.random() * 360;
+            const startAngle = state.currentAngle || 0;
+            const totalRotation = targetAngle;
+
+            const duration = 3000 + Math.random() * 1800;
+            const startTime = performance.now();
+
+            function animateSpin(time) {
+                const elapsed = time - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const currentDeg = startAngle + totalRotation * eased;
+                setBottleAngle(currentDeg);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateSpin);
                 } else {
-                    statusEl.innerHTML = '<i class="fas fa-clock"></i> waiting';
-                    statusEl.className = 'status';
-                }
-            });
+                    const finalDeg = startAngle + totalRotation;
+                    setBottleAngle(finalDeg);
+                    const winner = getWinner(finalDeg);
 
-            saveState();
-        }
-
-        // ============================================================
-        // SHOW NEXT VERSE
-        // ============================================================
-        function showNextVerse() {
-            const idx = getUniqueVerse();
-            const verse = bibleVerses[idx];
-            if (verse) {
-                document.getElementById('verseRef').textContent = verse.ref;
-                document.getElementById('verseText').textContent = verse.text;
-                document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Manual verse';
-                // Play a short preview sound
-                const previewCtx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = previewCtx.createOscillator();
-                const gain = previewCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.value = 659;
-                gain.gain.value = 0.08;
-                osc.connect(gain);
-                gain.connect(previewCtx.destination);
-                osc.start();
-                osc.stop(previewCtx.currentTime + 0.3);
-            }
-            saveState();
-        }
-
-        // ============================================================
-        // RESET
-        // ============================================================
-        function resetToday() {
-            // Stop any playing alarm
-            stopLongAlarm();
-            document.getElementById('alarmOverlay').classList.remove('active');
-
-            const today = new Date().toDateString();
-            state = getDefaultState();
-            state.date = today;
-            state.usedIndices = [];
-            state.morning = { verseIndex: null, shown: false };
-            state.afternoon = { verseIndex: null, shown: false };
-            state.evening = { verseIndex: null, shown: false };
-            state.alarmTriggered = false;
-            state.alarmSlot = null;
-            saveState();
-
-            const idx = getUniqueVerse();
-            const verse = bibleVerses[idx];
-            if (verse) {
-                document.getElementById('verseRef').textContent = verse.ref;
-                document.getElementById('verseText').textContent = verse.text;
-                document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Daily verse';
-            }
-            updateUI();
-        }
-
-        // ============================================================
-        // TIME PICKER MODAL
-        // ============================================================
-        let editingSlot = null;
-
-        function openTimePicker(slotName) {
-            editingSlot = slotName;
-            const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
-            const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
-
-            document.getElementById('modalTitle').textContent = `${icons[slotName]} Set ${labels[slotName]} Time`;
-            document.getElementById('modalSub').textContent = `Choose when you want your ${labels[slotName].toLowerCase()} devotion`;
-
-            const currentMin = state.times[slotName];
-            const hours = String(Math.floor(currentMin / 60)).padStart(2, '0');
-            const mins = String(currentMin % 60).padStart(2, '0');
-            document.getElementById('timePicker').value = `${hours}:${mins}`;
-
-            document.getElementById('timeModal').classList.add('active');
-        }
-
-        function closeTimePicker() {
-            document.getElementById('timeModal').classList.remove('active');
-            editingSlot = null;
-        }
-
-        function saveTimePicker() {
-            if (!editingSlot) return;
-            const val = document.getElementById('timePicker').value;
-            if (!val) return;
-
-            const [h, m] = val.split(':').map(Number);
-            const minutes = h * 60 + m;
-
-            state.times[editingSlot] = minutes;
-            resetSlotShown(editingSlot);
-            saveState();
-            updateUI();
-
-            closeTimePicker();
-        }
-
-        // Modal event listeners
-        document.querySelectorAll('.time-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const slot = this.dataset.slot;
-                if (slot) openTimePicker(slot);
-            });
-        });
-
-        document.getElementById('modalCancel').addEventListener('click', closeTimePicker);
-        document.getElementById('modalSave').addEventListener('click', saveTimePicker);
-
-        document.getElementById('timeModal').addEventListener('click', function(e) {
-            if (e.target === this) closeTimePicker();
-        });
-
-        // ============================================================
-        // EVENT LISTENERS
-        // ============================================================
-        document.getElementById('nextVerseBtn').addEventListener('click', showNextVerse);
-        document.getElementById('resetBtn').addEventListener('click', resetToday);
-
-        document.getElementById('testAlarmBtn').addEventListener('click', function() {
-            // Test the alarm with a random verse
-            const idx = getUniqueVerse();
-            const verse = bibleVerses[idx];
-            if (verse) {
-                document.getElementById('alarmVerse').textContent = verse.text;
-                document.getElementById('alarmRef').textContent = verse.ref;
-                document.getElementById('alarmOverlay').classList.add('active');
-                startLongAlarm();
-                sendNotification('🔔 Test Alarm', 'Your devotion alarm is working!');
-            }
-        });
-
-        // ============================================================
-        // BACKGROUND CHECK
-        // ============================================================
-        function backgroundCheck() {
-            // If alarm is already playing, keep it going
-            if (isAlarmPlaying) {
-                // Make sure overlay is visible
-                if (!document.getElementById('alarmOverlay').classList.contains('active')) {
-                    document.getElementById('alarmOverlay').classList.add('active');
-                }
-            }
-
-            checkScheduledTimes();
-            updateUI();
-        }
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        function init() {
-            requestNotificationPermission();
-
-            // Load initial verse
-            const slots = ['morning', 'afternoon', 'evening'];
-            let foundVerse = false;
-
-            for (const slot of slots) {
-                const slotState = state[slot];
-                if (slotState && slotState.verseIndex !== null && slotState.verseIndex !== undefined) {
-                    const verse = bibleVerses[slotState.verseIndex];
-                    if (verse) {
-                        document.getElementById('verseRef').textContent = verse.ref;
-                        document.getElementById('verseText').textContent = verse.text;
-                        const icons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
-                        const labels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
-                        document.getElementById('verseTimeTag').textContent = `${icons[slot]} ${labels[slot]} verse`;
-                        foundVerse = true;
-                        break;
+                    if (winner === null) {
+                        resultBadge.textContent = 'Pointing to space, spinning again…';
+                        resultBadge.className = 'result-badge highlight';
+                        state.isSpinning = false;
+                        spinBtn.disabled = false;
+                        spinBtn.classList.remove('spinning');
+                        setTimeout(() => spinBottle(), 1000);
+                    } else {
+                        state.selectedName = winner;
+                        const score = state.scores[winner] || 0;
+                        resultBadge.textContent = `🎯 ${winner} (${score} pts) is selected!`;
+                        resultBadge.className = 'result-badge highlight';
+                        state.isSpinning = false;
+                        spinBtn.disabled = false;
+                        spinBtn.classList.remove('spinning');
+                        setTimeout(() => showModal(winner), 600);
                     }
                 }
             }
-
-            if (!foundVerse) {
-                const idx = getUniqueVerse();
-                const verse = bibleVerses[idx];
-                if (verse) {
-                    document.getElementById('verseRef').textContent = verse.ref;
-                    document.getElementById('verseText').textContent = verse.text;
-                    document.getElementById('verseTimeTag').textContent = '<i class="fas fa-book"></i> Daily verse';
-                }
-            }
-
-            // Check if there's a pending alarm that wasn't dismissed
-            if (state.alarmTriggered && state.alarmSlot) {
-                const slot = state[slotName];
-                if (slot && !slot.shown) {
-                    // Re-trigger the alarm
-                    const verseIdx = getVerseForSlot(state.alarmSlot);
-                    const verse = bibleVerses[verseIdx];
-                    if (verse) {
-                        document.getElementById('alarmVerse').textContent = verse.text;
-                        document.getElementById('alarmRef').textContent = verse.ref;
-                        document.getElementById('alarmOverlay').classList.add('active');
-                        startLongAlarm();
-                    }
-                }
-            }
-
-            updateUI();
-
-            // Check immediately
-            checkScheduledTimes();
-
-            // Check every 3 seconds for more responsive alarm
-            setInterval(backgroundCheck, 3000);
-
-            // Check on visibility change
-            document.addEventListener('visibilitychange', function() {
-                if (!document.hidden) {
-                    // If alarm was playing and page was hidden, resume
-                    if (state.alarmTriggered && !document.getElementById('alarmOverlay').classList.contains('active')) {
-                        const slot = state.alarmSlot;
-                        if (slot) {
-                            const verseIdx = getVerseForSlot(slot);
-                            const verse = bibleVerses[verseIdx];
-                            if (verse) {
-                                document.getElementById('alarmVerse').textContent = verse.text;
-                                document.getElementById('alarmRef').textContent = verse.ref;
-                                document.getElementById('alarmOverlay').classList.add('active');
-                                startLongAlarm();
-                            }
-                        }
-                    }
-                    checkScheduledTimes();
-                    updateUI();
-                }
-            });
-
-            console.log('📖 Daily Devotion initialized. Times:',
-                minutesToTimeStr(state.times.morning),
-                minutesToTimeStr(state.times.afternoon),
-                minutesToTimeStr(state.times.evening)
-            );
-            console.log('🔔 Alarm will ring and continue until you open the page and dismiss it.');
+            requestAnimationFrame(animateSpin);
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        // ================================================================
+        //  MODAL LOGIC (Truth / Dare)
+        // ================================================================
+        let currentChoice = null;
+
+        function showModal(name) {
+            modalContent.innerHTML = `
+                <div class="selected-name">
+                    <i class="fas fa-wine-bottle" style="opacity:0.15;margin-right:10px;"></i>
+                    <strong>${name}</strong>
+                </div>
+                <div class="subtitle" id="modalSubtitle">Choose Truth or Dare</div>
+                <div class="choice-btns" id="choiceBtns">
+                    <button class="choice-btn truth" id="truthBtn"><i class="fas fa-comment"></i> Truth</button>
+                    <button class="choice-btn dare" id="dareBtn"><i class="fas fa-bolt"></i> Dare</button>
+                </div>
+                <div class="action-btns hidden" id="actionBtns">
+                    <button class="action-btn answered" id="actionPrimaryBtn"><i class="fas fa-check"></i> Answered</button>
+                    <button class="action-btn skip" id="actionSkipBtn"><i class="fas fa-times"></i> Skip</button>
+                </div>
+            `;
+            currentChoice = null;
+            modalOverlay.classList.add('open');
+
+            document.getElementById('truthBtn').addEventListener('click', () => handleChoice('truth'));
+            document.getElementById('dareBtn').addEventListener('click', () => handleChoice('dare'));
+            document.getElementById('actionPrimaryBtn').addEventListener('click', handlePrimaryAction);
+            document.getElementById('actionSkipBtn').addEventListener('click', handleSkip);
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+            currentChoice = null;
+        }
+
+        function handleChoice(choice) {
+            currentChoice = choice;
+            document.getElementById('choiceBtns').classList.add('hidden');
+            const actionBtns = document.getElementById('actionBtns');
+            actionBtns.classList.remove('hidden');
+            const subtitle = document.getElementById('modalSubtitle');
+
+            if (choice === 'truth') {
+                subtitle.textContent = 'Did the player answer the Truth?';
+                document.getElementById('actionPrimaryBtn').innerHTML = '<i class="fas fa-check"></i> Answered (+1)';
+                document.getElementById('actionPrimaryBtn').className = 'action-btn answered';
+                document.getElementById('actionSkipBtn').innerHTML = '<i class="fas fa-times"></i> Skip (-1)';
+            } else {
+                subtitle.textContent = 'Did the player complete the Dare?';
+                document.getElementById('actionPrimaryBtn').innerHTML = '<i class="fas fa-check"></i> Done (+1)';
+                document.getElementById('actionPrimaryBtn').className = 'action-btn done';
+                document.getElementById('actionSkipBtn').innerHTML = '<i class="fas fa-times"></i> Skip (-1)';
+            }
+        }
+
+        function handlePrimaryAction() {
+            const name = state.selectedName;
+            if (name && state.scores[name] !== undefined) {
+                state.scores[name] += 1;
+                renderTags();
+                const action = currentChoice === 'truth' ? 'Answered' : 'Done';
+                resultBadge.textContent = `✅ ${name} ${action}! (${state.scores[name]} pts)`;
+                resultBadge.className = 'result-badge highlight';
+            }
+            closeModal();
+        }
+
+        function handleSkip() {
+            const name = state.selectedName;
+            if (name && state.scores[name] !== undefined) {
+                state.scores[name] -= 1;
+                renderTags();
+                resultBadge.textContent = `⏭️ ${name} skipped. (${state.scores[name]} pts)`;
+                resultBadge.className = 'result-badge highlight';
+            }
+            closeModal();
+        }
+
+        // ================================================================
+        //  RANKING (FINISH)
+        // ================================================================
+        function showRanking() {
+            if (state.names.length < 2) return;
+
+            const sorted = [...state.names].sort((a, b) => (state.scores[b] || 0) - (state.scores[a] || 0));
+            let html = `
+                <div style="text-align:center;margin-bottom:8px;">
+                    <div style="font-size:28px;font-weight:700;color:#3b2a1c;">🏆 Final Ranking</div>
+                    <div style="font-size:14px;color:#7a5f4b;margin-top:4px;">${state.names.length} players</div>
+                </div>
+                <div class="ranking-list-container">
+            `;
+
+            sorted.forEach((name, index) => {
+                const score = state.scores[name] || 0;
+                let rankLabel;
+                let isLoser = false;
+
+                if (index === 0) rankLabel = '🥇 1st';
+                else if (index === 1) rankLabel = '🥈 2nd';
+                else if (index === 2) rankLabel = '🥉 3rd';
+                else if (index === sorted.length - 1) {
+                    rankLabel = `😭 ${index+1}th (Loser)`;
+                    isLoser = true;
+                } else {
+                    rankLabel = `${index+1}th`;
+                }
+
+                html += `
+                    <div class="ranking-item ${isLoser ? 'loser' : ''}">
+                        <span class="rank-name"><strong>${rankLabel}</strong> ${name}</span>
+                        <span class="rank-score">${score} pts</span>
+                    </div>
+                `;
+            });
+
+            html += `
+                </div>
+                <button class="btn-close-ranking" id="closeRankingBtn"><i class="fas fa-check-circle"></i> Close</button>
+            `;
+
+            modalContent.innerHTML = html;
+            modalOverlay.classList.add('open');
+
+            document.getElementById('closeRankingBtn').addEventListener('click', () => {
+                modalOverlay.classList.remove('open');
+            });
+        }
+
+        // ================================================================
+        //  EVENTS
+        // ================================================================
+        addBtn.addEventListener('click', addName);
+        nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addName(); });
+        clearBtn.addEventListener('click', clearAll);
+        spinBtn.addEventListener('click', spinBottle);
+        finishBtn.addEventListener('click', showRanking);
+
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) modalOverlay.classList.remove('open');
+        });
+
+        // ================================================================
+        //  RESIZE
+        // ================================================================
+        function handleResize() {
+            const rect = wheelContainer.getBoundingClientRect();
+            const size = Math.min(rect.width, rect.height) || 400;
+            const dpr = 1;
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(dpr, dpr);
+            renderWheel();
+        }
+
+        const resizeObserver = new ResizeObserver(() => handleResize());
+        resizeObserver.observe(wheelContainer);
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        state.names = [];
+        state.scores = {};
+        renderTags();
+        handleResize();
+        setBottleAngle(0);
+        spinBtn.disabled = true;
+        finishBtn.disabled = true;
+        resultBadge.textContent = 'Add at least 2 names to play';
+
+        console.log('🤎 Spin The Bottle • Ultra-smooth scroll • Mobile optimized');
     </script>
 </body>
 </html>
